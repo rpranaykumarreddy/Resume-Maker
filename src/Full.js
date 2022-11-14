@@ -47,7 +47,7 @@ class FullFun extends React.Component {
         name: "Bulk Certificate Maker & Verifier",
         link: "https://rpranaykumarreddy.github.io/youtube-Ext/",
         role: "Developer",
-        teamSize: "1",
+        teamSize: "2",
         duration: "2 days",
         achievements: ["Maker to produce certificate(.pdf) in bulk along with QR code for verification.", "Verifier to scan the QR Code on certificate & fetch the data of the certificate."],
         date: "September 22, 2022"

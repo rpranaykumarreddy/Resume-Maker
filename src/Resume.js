@@ -3,7 +3,6 @@ import imGithub from './github.svg';
 import imGmail from './gmail.svg';
 import imWhatsapp from './whatsapp.svg';
 import imLinkedin from './linkedin.svg';
-import imphone from './phone.svg';
 
 function ReIcon(props) {
     const { img, lk, name } = props;
@@ -12,9 +11,9 @@ function ReIcon(props) {
     }
     return (
         <span className="ReLink">&nbsp;&nbsp;
-            <img src={img} />
+            <img src={img} alt="Logo" />
             &nbsp;
-            <a href={lk} target="_blank">{name}</a>
+            <a href={lk} target="_blank" rel="noreferrer">{name}</a>
             &nbsp;&nbsp;
         </span>
     );
@@ -37,11 +36,22 @@ function ReHeader(props) {
     </header>
     );
 }
-function Resume(props) {
-    const d = props.data;
-    return (<>
-        <div className="resume">
-            <ReHeader ob={d} />
+
+function ReEducation(props) {
+    const edu = props.ob;
+    const tabEdu = edu.map((det) => {
+        return (<tr>
+            <td className="noWrap">{Number(det.startYear)}-{Number(det.startYear)}</td>
+            <td>{det.degree}</td>
+            <td>{det.institution}</td>
+            <td className="noWrap">
+                {(det.CGPA) ? ("CGPA: " + Number(det.CGPA)) : (Number(det.percentage) + "%")}
+            </td>
+        </tr>
+        )
+    });
+    return (
+        <>
             <section>
                 <h2>Education</h2>
                 <table className="teCen">
@@ -52,150 +62,117 @@ function Resume(props) {
                             <th>Institution</th>
                             <th>CGPA / Percentage</th>
                         </tr>
-                        <tr>
-                            <td className="noWrap">2020-2024</td>
-                            <td>B.Tech (Computer Science and Engineering)</td>
-                            <td>Indian Institute of Information Technology, Bhopal</td>
-                            <td className="noWrap">CGPA: 8.41</td>
-                        </tr>
-                        <tr>
-                            <td className="noWrap">2018-2020</td>
-                            <td>Intermediate (TSBIE)</td>
-                            <td>Nano Junior College</td>
-                            <td className="noWrap">96.6%</td>
-                        </tr>
-                        <tr>
-                            <td className="noWrap">2018</td>
-                            <td>Class X (CBSE)</td>
-                            <td>Academic Heights School</td>
-                            <td className="noWrap">87.2%</td>
-                        </tr>
+                        {tabEdu}
                     </tbody>
                 </table>
             </section>
             <br />
+        </>
+    );
+}
+function ReProjects(props) {
+    const pro = props.ob;
+    const link = props.lik;
+    const more = (link) ? (<><span>&#40;</span><a style={{ textTransform: "lowercase" }} href={link}>more</a><span>&#41;</span></>) : "";
+    const tabPro = pro.map((det) => {
+        const cat = (det.category) ? (<><span>{det.category}</span>&nbsp;&#124;&nbsp;</>) : null;
+        const nam = (det.name) ? (<><span>{det.name}</span>&nbsp;&#124;&nbsp;</>) : null;
+        const teatmp = (det.teamSize) ? ("Team size : " + det.teamSize + ((det.teamSize > 1) ? " People" : " Person (me)")) : null;
+        const teamSiz = (teatmp) ? (<>&nbsp;&#124;&nbsp;<span>{teatmp}</span></>) : null;
+        const durtmp = (det.duration) ? ("Duration : " + det.duration) : null;
+        const durSiz = (durtmp) ? (<>&nbsp;&#124;&nbsp;<span>{durtmp}</span></>) : null;
+        const achievement = det.achievements;
+        const achiv = achievement.map((ach) => {
+            return (<li>{ach}</li>);
+        });
+        return (
+            <article className="marBot">
+                <h3><b>{cat}{nam}<span><a href={det.link} target="_blank" rel="noopener noreferrer">Live Demo</a></span></b><span className="proDate">{det.date}</span></h3>
+                <h3><b><span>{det.role}</span></b>{teamSiz}{durSiz}</h3>
+                <ul>{achiv}</ul>
+            </article>
+        )
+    });
+
+    return (
+        <>
             <section>
-                <h2>Projects</h2>
-                <article className="marBot">
-                    <h3>
-                        <b>
-                            <span>AI Project</span> | <span>Detection of Breast Cancer</span> |{" "}
-                            <span>
-                                <a href="http://" target="_blank" rel="noopener noreferrer">
-                                    Live Demo
-                                </a>
-                            </span>
-                        </b>
-                        <span className="proDate">February 2022</span>
-                    </h3>
-                    <h3>
-                        <b>
-                            <span>Team Leader &amp; Lead Developer</span>
-                        </b>{" "}
-                        | <span>Team size : 7 People</span>
-                    </h3>
-                    <ul>
-                        <li>Getting high accurate predictions for the health sector.</li>
-                        <li>Dynamic predictions based on datasets accuracy.</li>
-                    </ul>
-                </article>
-                <article className="marBot">
-                    <h3>
-                        <b>
-                            <span>AI Project</span> | <span>Detection of Breast Cancer</span> |{" "}
-                            <span>
-                                <a href="http://" target="_blank" rel="noopener noreferrer">
-                                    Live Demo
-                                </a>
-                            </span>
-                        </b>
-                        <span className="proDate">February 2022</span>
-                    </h3>
-                    <h3>
-                        <b>
-                            <span>Team Leader &amp; Lead Developer</span>
-                        </b>{" "}
-                        | <span>Team size : 7 People</span>
-                    </h3>
-                    <ul>
-                        <li>Getting high accurate predictions for the health sector.</li>
-                        <li>Dynamic predictions based on datasets accuracy.</li>
-                    </ul>
-                </article>
-                <article className="marBot">
-                    <h3>
-                        <b>
-                            <span>AI Project</span> | <span>Detection of Breast Cancer</span> |{" "}
-                            <span>
-                                <a href="http://" target="_blank" rel="noopener noreferrer">
-                                    Live Demo
-                                </a>
-                            </span>
-                        </b>
-                        <span className="proDate">February 2022</span>
-                    </h3>
-                    <h3>
-                        <b>
-                            <span>Team Leader &amp; Lead Developer</span>
-                        </b>{" "}
-                        | <span>Team size : 7 People</span>
-                    </h3>
-                    <ul>
-                        <li>Getting high accurate predictions for the health sector.</li>
-                        <li>Dynamic predictions based on datasets accuracy.</li>
-                    </ul>
-                </article>
+                <h2>Projects {more}</h2>
+                {tabPro}
             </section>
+        </>
+    );
+}
+function ReSkills(props) {
+    const sk = props.ob;
+    const tabSk = sk.map((det) => {
+        const subTabSk = det.map((subDet, index) => {
+            if (index === 0) {
+                return (<b>{subDet}: </b>);
+            } if (index === 1) {
+                return (<>{subDet}</>)
+            }
+            return (<>, {subDet}</>);
+        });
+        return (<h3>{subTabSk}</h3>);
+    });
+    return (
+        <> <section>
+            <h2>Skills</h2>
+            {tabSk}
+        </section>
             <br />
-            <section>
-                <h2>Skills</h2>
-                <h3>
-                    <b>Language: </b>C Language
-                </h3>
-                <h3>
-                    <b>Web Development: </b>HTML, CSS, JavaScript, SQL, ReactJS, Django
-                </h3>
-                <h3>
-                    <b>Other: </b>Photo Shop, MS Access
-                </h3>
-                <h3>
-                    <b>Soft Skills: </b>Problem Solving, Effective Communication, Management
-                    Skills, Perceptive
-                </h3>
-            </section>
-            <br />
-            <section>
-                <h2>Achiecements</h2>
-                <ul>
-                    <li>
-                        Secured 2nd position in IBM Innovation Camp: AI | IBM &amp; Edunet
-                    </li>
-                    <li>
-                        Completion of Finding the leader in You (FLY)-Scholar Program |
-                        Competitiveness Mindset Institute
-                    </li>
-                </ul>
-            </section>
-            <br />
-            <section>
-                <h2>Positions of Responsibilities</h2>
-                <h3>
-                    <b>Google Developer Student Club (GDSC) Lead</b>
-                    <span className="proDate">July 2022 - Present</span>
-                </h3>
-                <br />
-                <h3>
-                    <b>Lead Developer at We Thinc Solutions</b>
-                    <span className="proDate">December 2022 - Present</span>
-                </h3>
-                <ul>
-                    <li>
-                        {" "}
-                        Built a group to have an environment to work-on different Ideas &amp; to
-                        increase efficiency.
-                    </li>
-                </ul>
-            </section></div>
+        </>
+    );
+}
+function ReAchivement(props) {
+    const ach = props.ob;
+    const LisAch = ach.map((det) => {
+        return (<li>{det}</li>);
+    });
+    return (<><section>
+        <h2>Achievements</h2>
+        <ul>
+            {LisAch}
+        </ul>
+    </section><br /></>
+    );
+}
+function RePosition(props) {
+    const pos = props.ob;
+    const Lispos = pos.map((det) => {
+        var LisFin, lisHig;
+        if (det.achievements) {
+            const ach = det.achievements;
+            lisHig = ach.map((det) => {
+                return (<li>{det}</li>);
+            });
+            LisFin = (<ul>{lisHig}</ul>);
+        } else { LisFin = null; }
+        return (<>
+            <h3>
+                <b>{det.title}</b>
+                <span className="proDate">{det.timeline}</span>
+            </h3>
+            {LisFin}<br /></>);
+    });
+    return (<><section>
+        <h2>Positions of Responsibilities</h2>
+        {Lispos}
+    </section></>
+    );
+}
+function Resume(props) {
+    const d = props.data;
+    return (<>
+        <div className="resume">
+            <ReHeader ob={d} />
+            <ReEducation ob={d.education} />
+            <ReProjects ob={d.projects} lik={d.portfolioLink} />
+            <ReSkills ob={d.skills} />
+            <ReAchivement ob={d.achievements} />
+            <RePosition ob={d.positions} />
+        </div>
     </>
     );
 }
