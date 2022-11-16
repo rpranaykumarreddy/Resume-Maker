@@ -13,7 +13,7 @@ function ReIcon(props) {
         <span className="ReLink">&nbsp;&nbsp;
             <img src={img} alt="Logo" />
             &nbsp;
-            <a href={lk} target="_blank" rel="noreferrer">{name}</a>
+            <a href={lk} target="_blank" rel="search noreferrer">{name}</a>
             &nbsp;&nbsp;
         </span>
     );
@@ -24,13 +24,13 @@ function ReHeader(props) {
     return (<header className="teCen">
         <h1 className="marBot">{fullName}</h1>
         <p>
-            <ReIcon img={imGithub} lk={link.github} name="GitHub" />
+            <ReIcon img={imGithub} lk={link.lgithub} name="GitHub" />
 
-            <ReIcon img={imGmail} lk={link.gmail} name={link.gmail} />
+            <ReIcon img={imGmail} lk={link.lgmail} name={link.gmail} />
 
-            <ReIcon img={imWhatsapp} lk={link.whatsapp} name={link.whatsapp} />
+            <ReIcon img={imWhatsapp} lk={link.lwhatsapp} name={link.whatsapp} />
 
-            <ReIcon img={imLinkedin} lk={link.linkedin} name="LinkedIn" />
+            <ReIcon img={imLinkedin} lk={link.llinkedin} name="LinkedIn" />
         </p>
         <br />
     </header>

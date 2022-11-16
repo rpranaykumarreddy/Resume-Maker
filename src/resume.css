@@ -90,12 +90,13 @@ a:active {
     margin: 0 auto;
     height: calc(1.4142 * 90vw);
 }
+/*
 .FormInter {
     display: none;
 }
 nav{
     display: none;
-}
+}*/
 
 .ReLink{
     border-right: 2px black solid;

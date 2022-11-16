@@ -9,9 +9,13 @@ class FullFun extends React.Component {
       fullName: "Ravula Pranay Kumar Reddy",
       link: {
         github: "",
+        lgithub: "",
         gmail: "rpranayreddy40@gmail.com",
+        lgmail: "https://mailto:rpranayreddy40@gmail.com",
         whatsapp: "917680904589",
-        linkedin: "http://www.linkedin.com/in/rpranaykumarreddy"
+        lwhatsapp: "https://wa.me/917680904589",
+        linkedin: "rpranaykumarreddy",
+        llinkedin: "http://www.linkedin.com/in/rpranaykumarreddy"
       },
       education: [{
         startYear: "2020",
@@ -78,9 +82,55 @@ class FullFun extends React.Component {
 
   handleChange = e => {
     const { name, value } = e.target;
-
     this.setState(prevState => ({ [name]: value }));
   };
+
+  setGmail = (e) => {
+    e.preventDefault();
+    var { name, value } = e.target;
+    var prevState = this.state;
+    prevState.link = { ...prevState.link, [name]: value };
+    this.setState(prevState);
+    value = "mailto:" + value;
+    this.setLink(name, value);
+  }
+  setWhatsapp = (e) => {
+    e.preventDefault();
+    var { name, value } = e.target;
+    var prevState = this.state;
+    prevState.link = { ...prevState.link, [name]: value };
+    this.setState(prevState);
+    value = "https://wa.me/" + value;
+    this.setLink(name, value);
+  }
+  setGithub = (e) => {
+    e.preventDefault();
+    var { name, value } = e.target;
+    var prevState = this.state;
+    prevState.link = { ...prevState.link, [name]: value };
+    this.setState(prevState);
+    value = "https://www.github.com/" + value;
+    this.setLink(name, value);
+  }
+  setLinkedin = (e) => {
+    e.preventDefault();
+    var { name, value } = e.target;
+    var prevState = this.state;
+    prevState.link = { ...prevState.link, [name]: value };
+    this.setState(prevState);
+    value = "https://www.linkedin.com/in/" + value;
+    this.setLink(name, value);
+  }
+  setLink = (n, v) => {
+    n = "l" + n;
+    var prevState = this.state;
+    if (!(v.includes("http://") || v.includes("https://"))) {
+      v = "https://" + v;
+    }
+    prevState.link = { ...prevState.link, [n]: v };
+    this.setState(prevState);
+  }
+
 
   handleSubmit = e => {
     e.preventDefault();
@@ -92,18 +142,28 @@ class FullFun extends React.Component {
       <>
         <div className='FormInter'>
           <form>
-            <input name="Lname" onChange={this.handleChange} value={this.state.Lname} type="text" placeholder="name" />
-            <input name="githubLink" onChange={this.handleChange} value={this.state.githubLink} type="text" placeholder="githubLink" />
-            <input name="mailAdd" onChange={this.handleChange} value={this.state.mailAdd} type="text" placeholder="mailAdd" />
-            <input name="phoneNo" onChange={this.handleChange} value={this.state.phoneNo} type="number" placeholder="phoneNo" />
-            <input name="linkedinAc" onChange={this.handleChange} value={this.state.linkedinAc} type="text" placeholder="linkedinAc" />
+            <input name="fullName" onChange={this.handleChange} value={this.state.fullName} className="link" type="text" placeholder="Full Name" />
+            <input name="github" onChange={this.setGithub} value={this.state.link.github} type="text" placeholder="github ID" />
+            <input name="gmail" onChange={this.setGmail} value={this.state.link.gmail} type="text" placeholder="mailAdd" />
+            <input name="whatsapp" onChange={this.setWhatsapp} value={this.state.link.whatsapp} type="number" placeholder="phoneNo" />
+            <input name="linkedin" onChange={this.setLinkedin} value={this.state.link.linkedin} type="text" placeholder="linkedin ID" />
+
 
             <button onClick={this.handleSubmit}>Submit</button>
           </form>
         </div>
+        <br /><br /><br /><br />
         <Resume data={this.state} />
       </>
     );
   }
 }
+/*
+function showIndex(evt, className) {
+  var claArr = document.getElementsByClassName(className);
+
+  for (let i = 0; i < claArr.length; i++)
+    if (claArr[i] == evt.target)
+      alert(i);
+}*/
 export default FullFun;
