@@ -106,15 +106,7 @@ function ReProjects(props) {
 function ReSkills(props) {
     const sk = props.ob;
     const tabSk = sk.map((det) => {
-        const subTabSk = det.map((subDet, index) => {
-            if (index === 0) {
-                return (<b>{subDet}: </b>);
-            } if (index === 1) {
-                return (<>{subDet}</>)
-            }
-            return (<>, {subDet}</>);
-        });
-        return (<h3>{subTabSk}</h3>);
+        return (<h3><b>{det[0] + ": "}</b>{det[1]}</h3>);
     });
     return (
         <> <section>
