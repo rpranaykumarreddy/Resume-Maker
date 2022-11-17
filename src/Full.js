@@ -3,7 +3,7 @@ import Resume from './Resume';
 import React from "react";
 
 
-/*function NewForEduRow(props) {
+function NewForEduRow(props) {
   var { cha, base, ind } = props;
   return (<div className='divEduSer'>
     <input name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" step="1" placeholder="Year of start" />
@@ -13,16 +13,15 @@ import React from "react";
     <p>CGPA is preferred over Percentage</p>
     <input name="CGPA" className="fCGPA" onChange={cha} value={base[ind].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" />
     <input name="percentage" className="fPercentage" onChange={cha} value={base[ind].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" />
-    <br />
+    <br /><br />
   </div>
   );
 
-}*/
+}
 class FullFun extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      AAAHTML: { forEdu: "" },
       fullName: "Ravula Pranay Kumar Reddy",
       link: {
         github: "",
@@ -45,12 +44,14 @@ class FullFun extends React.Component {
         endYear: "2020",
         degree: "Intermediate in MPC",
         institution: "Nano Junior College, Nallakunta (TSBIE)",
+        CGPA: "",
         percentage: "96.6"
       }, {
         startYear: "2020",
         endYear: "2024",
         degree: "B.Tech in Computer Science and Engineering",
         institution: "Academic Heights Public School, Bhongir (CBSE)",
+        CGPA: "",
         percentage: "87.2"
       }],
       portfolioLink: "https://pranay.wethinc.in",
@@ -166,24 +167,11 @@ class FullFun extends React.Component {
     this.setState(prevState);
   }
   newForEdu = (e) => {
-    e.preventDefault();/*var parNode = document.getElementById("divForEdu");
-    var classIndex = document.getElementsByClassName("divEduSer").length;
-    var innerCod;
-    innerCod = '<input name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" step="1" placeholder="Year of start" /><input name="endYear" className="fEndYear" onChange={cha} value={base[ind].endYear} type="number" step="1" placeholder="Year of end" /><input name="degree" className="fDegree" onChange={cha} value={base[ind].degree} type="text" placeholder="Degree" /><input name="institution" className="fInstitution" onChange={cha} value={base[ind].institution} type="text" placeholder="Institution" /><p>CGPA is preferred over Percentage</p><input name="CGPA" className="fCGPA" onChange={cha} value={base[ind].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" /><input name="percentage" className="fPercentage" onChange={cha} value={base[ind].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" /><br />';
-    //innerCod = innerCod.replace("this.state.education[0]", "this.state.education[" + classIndex + "]");
-    const search = "this.state.education[0]";
-    const replaceWith = "this.state.education[" + classIndex + "]";
-    innerCod = innerCod.split(search).join(replaceWith);
-    console.log(innerCod);
-    var newElement = document.createElement("div");
-    newElement.classList.add("divEduSer");
-    newElement.innerHTML = innerCod;
-    parNode.appendChild(newElement);
-    console.log(classIndex, parNode);*/
-
-  }
-  cheValue = (e) => {
-    return 20;
+    e.preventDefault();
+    console.log("newForEdu");
+    var prevState = this.state;
+    prevState.education.push({ startYear: "", endYear: "", degree: "", institution: "", CGPA: "", percentage: "" });
+    this.setState(prevState);
   }
   render() {
     return (
@@ -199,16 +187,11 @@ class FullFun extends React.Component {
             <br /><br /><br /><br />
 
             <div id="divForEdu">
-              <div className='divEduSer'>
-                <input name="startYear" className="fStartYear" onChange={this.setEducation} value={this.state.education[0].startYear} type="number" step="1" placeholder="Year of start" />
-                <input name="endYear" className="fEndYear" onChange={this.setEducation} value={this.state.education[0].endYear} type="number" step="1" placeholder="Year of end" />
-                <input name="degree" className="fDegree" onChange={this.setEducation} value={this.state.education[0].degree} type="text" placeholder="Degree" />
-                <input name="institution" className="fInstitution" onChange={this.setEducation} value={this.state.education[0].institution} type="text" placeholder="Institution" />
-                <p>CGPA is preferred over Percentage</p>
-                <input name="CGPA" className="fCGPA" onChange={this.setEducation} value={this.state.education[0].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" />
-                <input name="percentage" className="fPercentage" onChange={this.setEducation} value={this.state.education[0].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" />
-                <br />
-              </div></div>
+              {this.state.education.map((con, index) => {
+                return (<NewForEduRow cha={this.setEducation} base={this.state.education} ind={index}></NewForEduRow>
+                );
+              })}
+            </div>
             <br />
             <button onClick={this.newForEdu} className="fAddEdu">+ Add Education</button>
             {/* <button onClick={this.handleSubmit}>Submit</button> */}

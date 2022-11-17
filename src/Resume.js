@@ -41,7 +41,7 @@ function ReEducation(props) {
     const edu = props.ob;
     const tabEdu = edu.map((det) => {
         return (<tr>
-            <td className="noWrap">{Number(det.startYear)}-{Number(det.startYear)}</td>
+            <td className="noWrap">{Number(det.startYear)}-{Number(det.endYear)}</td>
             <td>{det.degree}</td>
             <td>{det.institution}</td>
             <td className="noWrap">
