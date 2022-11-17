@@ -2,10 +2,27 @@ import './App.css';
 import Resume from './Resume';
 import React from "react";
 
+
+/*function NewForEduRow(props) {
+  var { cha, base, ind } = props;
+  return (<div className='divEduSer'>
+    <input name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" step="1" placeholder="Year of start" />
+    <input name="endYear" className="fEndYear" onChange={cha} value={base[ind].endYear} type="number" step="1" placeholder="Year of end" />
+    <input name="degree" className="fDegree" onChange={cha} value={base[ind].degree} type="text" placeholder="Degree" />
+    <input name="institution" className="fInstitution" onChange={cha} value={base[ind].institution} type="text" placeholder="Institution" />
+    <p>CGPA is preferred over Percentage</p>
+    <input name="CGPA" className="fCGPA" onChange={cha} value={base[ind].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" />
+    <input name="percentage" className="fPercentage" onChange={cha} value={base[ind].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" />
+    <br />
+  </div>
+  );
+
+}*/
 class FullFun extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      AAAHTML: { forEdu: "" },
       fullName: "Ravula Pranay Kumar Reddy",
       link: {
         github: "",
@@ -77,7 +94,6 @@ class FullFun extends React.Component {
       }
       ]
     };
-
   }
 
   handleChange = e => {
@@ -131,12 +147,44 @@ class FullFun extends React.Component {
     this.setState(prevState);
   }
 
-
-  handleSubmit = e => {
+  /*handleSubmit = e => {
     e.preventDefault();
     window.alert("Submitted" + JSON.stringify(this.state));
-  };
+  };*/
+  setEducation = (e) => {
+    e.preventDefault();
+    var prevState = this.state;
+    var classIndex = showIndex(e, e.target.classList);
+    var classList = ["fStartYear", "fEndYear", "fDegree", "fInstitution", "fCGPA", "fPercentage"]
+    classList.forEach(className => {
+      var temp = document.getElementsByClassName(className);
+      var val = temp[classIndex].value;
+      var nam = temp[classIndex].name;
 
+      prevState.education[classIndex] = { ...prevState.education[classIndex], [nam]: val };
+    });
+    this.setState(prevState);
+  }
+  newForEdu = (e) => {
+    e.preventDefault();/*var parNode = document.getElementById("divForEdu");
+    var classIndex = document.getElementsByClassName("divEduSer").length;
+    var innerCod;
+    innerCod = '<input name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" step="1" placeholder="Year of start" /><input name="endYear" className="fEndYear" onChange={cha} value={base[ind].endYear} type="number" step="1" placeholder="Year of end" /><input name="degree" className="fDegree" onChange={cha} value={base[ind].degree} type="text" placeholder="Degree" /><input name="institution" className="fInstitution" onChange={cha} value={base[ind].institution} type="text" placeholder="Institution" /><p>CGPA is preferred over Percentage</p><input name="CGPA" className="fCGPA" onChange={cha} value={base[ind].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" /><input name="percentage" className="fPercentage" onChange={cha} value={base[ind].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" /><br />';
+    //innerCod = innerCod.replace("this.state.education[0]", "this.state.education[" + classIndex + "]");
+    const search = "this.state.education[0]";
+    const replaceWith = "this.state.education[" + classIndex + "]";
+    innerCod = innerCod.split(search).join(replaceWith);
+    console.log(innerCod);
+    var newElement = document.createElement("div");
+    newElement.classList.add("divEduSer");
+    newElement.innerHTML = innerCod;
+    parNode.appendChild(newElement);
+    console.log(classIndex, parNode);*/
+
+  }
+  cheValue = (e) => {
+    return 20;
+  }
   render() {
     return (
       <>
@@ -148,8 +196,22 @@ class FullFun extends React.Component {
             <input name="whatsapp" onChange={this.setWhatsapp} value={this.state.link.whatsapp} type="number" placeholder="phoneNo" />
             <input name="linkedin" onChange={this.setLinkedin} value={this.state.link.linkedin} type="text" placeholder="linkedin ID" />
 
+            <br /><br /><br /><br />
 
-            <button onClick={this.handleSubmit}>Submit</button>
+            <div id="divForEdu">
+              <div className='divEduSer'>
+                <input name="startYear" className="fStartYear" onChange={this.setEducation} value={this.state.education[0].startYear} type="number" step="1" placeholder="Year of start" />
+                <input name="endYear" className="fEndYear" onChange={this.setEducation} value={this.state.education[0].endYear} type="number" step="1" placeholder="Year of end" />
+                <input name="degree" className="fDegree" onChange={this.setEducation} value={this.state.education[0].degree} type="text" placeholder="Degree" />
+                <input name="institution" className="fInstitution" onChange={this.setEducation} value={this.state.education[0].institution} type="text" placeholder="Institution" />
+                <p>CGPA is preferred over Percentage</p>
+                <input name="CGPA" className="fCGPA" onChange={this.setEducation} value={this.state.education[0].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" />
+                <input name="percentage" className="fPercentage" onChange={this.setEducation} value={this.state.education[0].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" />
+                <br />
+              </div></div>
+            <br />
+            <button onClick={this.newForEdu} className="fAddEdu">+ Add Education</button>
+            {/* <button onClick={this.handleSubmit}>Submit</button> */}
           </form>
         </div>
         <br /><br /><br /><br />
@@ -158,12 +220,21 @@ class FullFun extends React.Component {
     );
   }
 }
-/*
-function showIndex(evt, className) {
-  var claArr = document.getElementsByClassName(className);
 
+function showIndex(evt) {
+  var classList = evt.target.classList
+  var className;
+  for (let i = 0; i < classList.length; i++) {
+    if (classList[i].charAt(0) === "f") {
+      className = classList[i];
+    }
+  }
+  var claArr = document.getElementsByClassName(className);
   for (let i = 0; i < claArr.length; i++)
-    if (claArr[i] == evt.target)
-      alert(i);
-}*/
+    if (claArr[i] === evt.target) {
+      //console.log("classIndex: " + i);
+      return i;
+    }
+}
+
 export default FullFun;
