@@ -3,6 +3,7 @@ import imGithub from './github.svg';
 import imGmail from './gmail.svg';
 import imWhatsapp from './whatsapp.svg';
 import imLinkedin from './linkedin.svg';
+import React from 'react';
 
 function ReIcon(props) {
     const { img, lk, name } = props;
@@ -23,7 +24,7 @@ function ReHeader(props) {
     const { fullName, link } = props.ob;
     return (<header className="teCen">
         <h1 className="marBot">{fullName}</h1>
-        <p>
+        <p className="divReLink">
             <ReIcon img={imGithub} lk={link.lgithub} name="GitHub" />
 
             <ReIcon img={imGmail} lk={link.lgmail} name={link.gmail} />
@@ -39,8 +40,8 @@ function ReHeader(props) {
 
 function ReEducation(props) {
     const edu = props.ob;
-    const tabEdu = edu.map((det) => {
-        return (<tr>
+    const tabEdu = edu.map((det, index) => {
+        return (<tr key={index}>
             <td className="noWrap">{Number(det.startYear)}-{Number(det.endYear)}</td>
             <td>{det.degree}</td>
             <td>{det.institution}</td>
@@ -74,21 +75,26 @@ function ReProjects(props) {
     const pro = props.ob;
     const link = props.lik;
     const more = (link) ? (<><span>&#40;</span><a style={{ textTransform: "lowercase" }} href={link}>more</a><span>&#41;</span></>) : "";
-    const tabPro = pro.map((det) => {
-        const cat = (det.category) ? (<><span>{det.category}</span>&nbsp;&#124;&nbsp;</>) : null;
-        const nam = (det.name) ? (<><span>{det.name}</span>&nbsp;&#124;&nbsp;</>) : null;
-        const teatmp = (det.teamSize) ? ("Team size : " + det.teamSize + ((det.teamSize > 1) ? " People" : " Person (me)")) : null;
-        const teamSiz = (teatmp) ? (<>&nbsp;&#124;&nbsp;<span>{teatmp}</span></>) : null;
+    const tabPro = pro.map((det, index) => {
+        const cat = (det.category) ? (<><span>{det.category}</span>&nbsp;&#124;</>) : null;
+        const nam = (det.name) ? (<>&nbsp;<span >{det.name}</span>&nbsp;</>) : null;
+        const aHre = ((det.link).trim() !== "") ? (<>&#124;&nbsp;<span ><a href={det.link} target="_blank" rel="noopener noreferrer">Live Demo</a></span></>) : null;
+
+        const rolNam = ((det.role).trim() !== "") ? (<><b><span>{det.role}</span></b>&nbsp;&#124;</>) : null;
+        const teatmp = (det.teamSize > 0) ? ("Team size : " + det.teamSize + ((det.teamSize > 1) ? " People" : " Person (me)")) : null;
+        const teamSiz = (teatmp) ? (<>&nbsp;<span>{teatmp}</span>&nbsp;</>) : null;
         const durtmp = (det.duration) ? ("Duration : " + det.duration) : null;
-        const durSiz = (durtmp) ? (<>&nbsp;&#124;&nbsp;<span>{durtmp}</span></>) : null;
+        const durSiz = (durtmp) ? (<>&#124;&nbsp;<span>{durtmp}</span></>) : null;
         const achievement = det.achievements;
-        const achiv = achievement.map((ach) => {
-            return (<li>{ach}</li>);
+
+        const achiv = achievement.map((ach, index) => {
+            if (ach.trim() === "") return null;
+            return (<li key={index}>{ach}</li>);
         });
         return (
-            <article className="marBot">
-                <h3><b>{cat}{nam}<span><a href={det.link} target="_blank" rel="noopener noreferrer">Live Demo</a></span></b><span className="proDate">{det.date}</span></h3>
-                <h3><b><span>{det.role}</span></b>{teamSiz}{durSiz}</h3>
+            <article className="marBot" key={index}>
+                <h3><b>{cat}{nam}{aHre}</b><span className="proDate">{det.date}</span></h3>
+                <h3>{rolNam}{teamSiz}{durSiz}</h3>
                 <ul>{achiv}</ul>
             </article>
         )
@@ -105,8 +111,10 @@ function ReProjects(props) {
 }
 function ReSkills(props) {
     const sk = props.ob;
-    const tabSk = sk.map((det) => {
-        return (<h3><b>{det[0] + ": "}</b>{det[1]}</h3>);
+    const tabSk = sk.map((det, index) => {
+        if (det[0].trim() === "") return null;
+        if (det[1].trim() === "") return null;
+        return (<h3 key={index}><b>{det[0] + ": "}</b>{det[1]}</h3>);
     });
     return (
         <> <section>
@@ -119,8 +127,9 @@ function ReSkills(props) {
 }
 function ReAchivement(props) {
     const ach = props.ob;
-    const LisAch = ach.map((det) => {
-        return (<li>{det}</li>);
+    const LisAch = ach.map((det, index) => {
+        if (det.trim() === "") return null;
+        return (<li key={index}>{det}</li>);
     });
     return (<><section>
         <h2>Achievements</h2>
@@ -132,21 +141,24 @@ function ReAchivement(props) {
 }
 function RePosition(props) {
     const pos = props.ob;
-    const Lispos = pos.map((det) => {
+    const Lispos = pos.map((det, index) => {
         var LisFin, lisHig;
         if (det.achievements) {
             const ach = det.achievements;
-            lisHig = ach.map((det) => {
-                return (<li>{det}</li>);
+            lisHig = ach.map((det, index) => {
+                if (det.trim() === "") return null;
+                return (<li key={index}>{det}</li>);
             });
             LisFin = (<ul>{lisHig}</ul>);
         } else { LisFin = null; }
-        return (<>
-            <h3>
-                <b>{det.title}</b>
-                <span className="proDate">{det.timeline}</span>
-            </h3>
-            {LisFin}<br /></>);
+        return (
+            <React.Fragment key={index}>
+                <h3>
+                    <b>{det.title}</b>
+                    <span className="proDate">{det.timeline}</span>
+                </h3>
+                {LisFin}<br />
+            </React.Fragment>);
     });
     return (<><section>
         <h2>Positions of Responsibilities</h2>

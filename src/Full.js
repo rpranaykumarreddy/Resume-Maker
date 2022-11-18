@@ -91,54 +91,67 @@ class FullFun extends React.Component {
   setGmail = (e) => {
     e.preventDefault();
     var { name, value } = e.target;
+    value = value.trim();
     var prevState = this.state;
     prevState.link = { ...prevState.link, [name]: value };
     this.setState(prevState);
-    value = "mailto:" + value;
+    if (value.trim() === "") { value = "" }
+    else {
+      value = "mailto:" + value;
+    }
     this.setLink(name, value);
   }
   setWhatsapp = (e) => {
     e.preventDefault();
     var { name, value } = e.target;
+    value = value.trim();
     var prevState = this.state;
     prevState.link = { ...prevState.link, [name]: value };
     this.setState(prevState);
-    value = "https://wa.me/" + value;
+    if (value.trim() === "") { value = "" }
+    else { value = "https://wa.me/" + value; }
     this.setLink(name, value);
   }
   setGithub = (e) => {
     e.preventDefault();
     var { name, value } = e.target;
+    value = value.trim();
     var prevState = this.state;
     prevState.link = { ...prevState.link, [name]: value };
     this.setState(prevState);
-    value = "https://www.github.com/" + value;
+    if (value.trim() === "") { value = "" }
+    else {
+      value = "https://www.github.com/" + value;
+    }
     this.setLink(name, value);
   }
   setLinkedin = (e) => {
     e.preventDefault();
     var { name, value } = e.target;
+    value = value.trim();
     var prevState = this.state;
     prevState.link = { ...prevState.link, [name]: value };
-    this.setState(prevState);
-    value = "https://www.linkedin.com/in/" + value;
+    this.setState(prevState); if (value.trim() === "") { value = "" }
+    else {
+      value = "https://www.linkedin.com/in/" + value;
+    }
     this.setLink(name, value);
   }
   setLink = (n, v) => {
+    v = v.trim();
     n = "l" + n;
     var prevState = this.state;
     if (!(v.includes("http://") || v.includes("https://"))) {
-      v = "https://" + v;
+      if (v.trim() === "") { v = "" }
+      else {
+        v = "https://" + v;
+      }
     }
     prevState.link = { ...prevState.link, [n]: v };
     this.setState(prevState);
   }
 
 
-  /*handleSubmit = e => {
-    e.preventDefault();
-    window.alert("Submitted" + JSON.stringify(this.state));
-  };*/
 
   setEducation = (e) => {
     e.preventDefault();
@@ -271,12 +284,17 @@ class FullFun extends React.Component {
 
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    console("Submitted" + JSON.stringify(this.state));
+  };
+
   render() {
     return (
       <>
         <div className='FormInter'>
-          <form>
-            <input name="fullName" onChange={this.handleChange} value={this.state.fullName} type="text" placeholder="Full Name" />
+          <form onSubmit={this.handleSubmit}>
+            <input required name="fullName" onChange={this.handleChange} value={this.state.fullName} type="text" placeholder="Full Name" />
             <input name="github" onChange={this.setGithub} value={this.state.link.github} type="text" placeholder="github ID" />
             <input name="gmail" onChange={this.setGmail} value={this.state.link.gmail} type="text" placeholder="mailAdd" />
             <input name="whatsapp" onChange={this.setWhatsapp} value={this.state.link.whatsapp} type="number" placeholder="phoneNo" />
@@ -285,7 +303,7 @@ class FullFun extends React.Component {
             <br /><br />
             <div id="divForEdu">
               {this.state.education.map((con, index) => {
-                return (<NewForEduRow cha={this.setEducation} base={this.state.education} ind={index}></NewForEduRow>);
+                return (<NewForEduRow cha={this.setEducation} base={this.state.education} ind={index} key={index}></NewForEduRow>);
               })}
               <br />
               <button onClick={this.newForEdu} className="fAddEdu">+ Add Education</button>
@@ -295,7 +313,7 @@ class FullFun extends React.Component {
               <input name="portfolioLink" onChange={this.handleChange} value={this.state.portfolioLink} type="text" placeholder="portfolio Link" />
               <br /><br />
               {this.state.projects.map((con, index) => {
-                return (<NewForPro cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index}></NewForPro>);
+                return (<NewForPro cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index} key={index}></NewForPro>);
               })}
               <br />
               <button onClick={this.newForProject} className="fAddProject">+ Add Projects</button>
@@ -303,7 +321,7 @@ class FullFun extends React.Component {
             <br /><br />
             <div id="divForSkills">
               {this.state.skills.map((con, index) => {
-                return (<NewForSkills cha={this.setSkills} base={this.state.skills} ind={index}></NewForSkills>);
+                return (<NewForSkills cha={this.setSkills} base={this.state.skills} ind={index} key={index}></NewForSkills>);
               })}
               <br />
               <button onClick={this.newForSkill} className="fAddSkills">+ Add Skills</button>
@@ -311,7 +329,7 @@ class FullFun extends React.Component {
             <br /><br />
             <div id="divForAchiv">
               {this.state.achievements.map((con, index) => {
-                return (<NewForAchievement cha={this.setAchievement} base={this.state.achievements} ind={index}></NewForAchievement>);
+                return (<NewForAchievement cha={this.setAchievement} base={this.state.achievements} ind={index} key={index}></NewForAchievement>);
               })}
               <br />
               <button onClick={this.newForAchi} className="fAddAchi">+ Add Achievement</button>
@@ -319,7 +337,7 @@ class FullFun extends React.Component {
             <br /><br />
             <div id="divForpositions">
               {this.state.positions.map((con, index) => {
-                return (<NewForPosition cha={this.setPositions} achCha={this.setPosAchi} base={this.state.positions} ind={index}></NewForPosition>);
+                return (<NewForPosition cha={this.setPositions} achCha={this.setPosAchi} base={this.state.positions} ind={index} key={index}></NewForPosition>);
               })}
               <br />
               <button onClick={this.newForPosition} className="fAddPosition">+ Add Positions</button>
@@ -352,7 +370,7 @@ function NewForEduRow(props) {
 function NewForPro(props) {
   var { cha, achCha, base, ind } = props;
   var achi = base[ind].achievements.map((con, index) => {
-    return (<input name="achievements" className="fProAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" />);
+    return (<input name="achievements" className="fProAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" key={index} />);
   });
   return (
     <div className='divProSer'>
@@ -393,7 +411,7 @@ function NewForAchievement(props) {
 function NewForPosition(props) {
   var { cha, achCha, base, ind } = props;
   var achi = base[ind].achievements.map((con, index) => {
-    return (<input name="achievements" className="fPosAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" />);
+    return (<input name="achievements" className="fPosAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" key={index} />);
   });
   return (
     <div className='divPosSer'>
