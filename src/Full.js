@@ -294,55 +294,63 @@ class FullFun extends React.Component {
       <>
         <div className='FormInter'>
           <form onSubmit={this.handleSubmit}>
-            <input required name="fullName" onChange={this.handleChange} value={this.state.fullName} type="text" placeholder="Full Name" />
-            <input name="github" onChange={this.setGithub} value={this.state.link.github} type="text" placeholder="github ID" />
-            <input name="gmail" onChange={this.setGmail} value={this.state.link.gmail} type="text" placeholder="mailAdd" />
-            <input name="whatsapp" onChange={this.setWhatsapp} value={this.state.link.whatsapp} type="number" placeholder="phoneNo" />
-            <input name="linkedin" onChange={this.setLinkedin} value={this.state.link.linkedin} type="text" placeholder="linkedin ID" />
-            <br /><br />
-            <br /><br />
+            <fieldset>
+              <legend>Your Personal Data:</legend>
+              <input id="fullName" name="fullName" onChange={this.handleChange} value={this.state.fullName} type="text" placeholder=" " />
+              <label htmlFor="fullName">Full Name</label>
+              <input id="portfolioLink" name="portfolioLink" onChange={this.handleChange} value={this.state.portfolioLink} type="text" placeholder="portfolio Link" />
+              <label htmlFor="portfolioLink">Portfolio Link</label>
+              <input id="github" name="github" onChange={this.setGithub} value={this.state.link.github} type="text" placeholder=" " />
+              <label htmlFor="github">Github</label>
+              <input id="gmail" name="gmail" onChange={this.setGmail} value={this.state.link.gmail} type="text" placeholder=" " />
+              <label htmlFor="gmail">Gmail</label>
+              <input id="whatsapp" name="whatsapp" onChange={this.setWhatsapp} value={this.state.link.whatsapp} type="number" placeholder=" " />
+              <label htmlFor="whatsapp">Whatsapp</label>
+              <input id="linkedin" name="linkedin" onChange={this.setLinkedin} value={this.state.link.linkedin} type="text" placeholder=" " />
+              <label htmlFor="linkedin">Linkedin</label>
+            </fieldset>
             <div id="divForEdu">
               {this.state.education.map((con, index) => {
                 return (<NewForEduRow cha={this.setEducation} base={this.state.education} ind={index} key={index}></NewForEduRow>);
               })}
-              <br />
-              <button onClick={this.newForEdu} className="fAddEdu">+ Add Education</button>
+              <button onClick={this.newForEdu} className="fAddEdu addBut">+ Add Education</button>
             </div>
-            <br /><br />
+
             <div id="divForPro">
-              <input name="portfolioLink" onChange={this.handleChange} value={this.state.portfolioLink} type="text" placeholder="portfolio Link" />
-              <br /><br />
               {this.state.projects.map((con, index) => {
                 return (<NewForPro cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index} key={index}></NewForPro>);
               })}
-              <br />
-              <button onClick={this.newForProject} className="fAddProject">+ Add Projects</button>
+
+              <button onClick={this.newForProject} className="fAddProject addBut">+ Add Projects</button>
             </div>
-            <br /><br />
+
             <div id="divForSkills">
               {this.state.skills.map((con, index) => {
                 return (<NewForSkills cha={this.setSkills} base={this.state.skills} ind={index} key={index}></NewForSkills>);
               })}
-              <br />
-              <button onClick={this.newForSkill} className="fAddSkills">+ Add Skills</button>
+
+              <button onClick={this.newForSkill} className="fAddSkills addBut">+ Add Skills</button>
             </div>
-            <br /><br />
+
             <div id="divForAchiv">
-              {this.state.achievements.map((con, index) => {
-                return (<NewForAchievement cha={this.setAchievement} base={this.state.achievements} ind={index} key={index}></NewForAchievement>);
-              })}
-              <br />
-              <button onClick={this.newForAchi} className="fAddAchi">+ Add Achievement</button>
+              <fieldset>
+                <legend>Your Personal Data:</legend>
+                {this.state.achievements.map((con, index) => {
+                  return (<NewForAchievement cha={this.setAchievement} base={this.state.achievements} ind={index} key={index}></NewForAchievement>);
+                })}
+
+                <button onClick={this.newForAchi} className="fAddAchi addBut">+ Add Achievement</button>
+              </fieldset>
             </div>
-            <br /><br />
+
             <div id="divForpositions">
               {this.state.positions.map((con, index) => {
                 return (<NewForPosition cha={this.setPositions} achCha={this.setPosAchi} base={this.state.positions} ind={index} key={index}></NewForPosition>);
               })}
-              <br />
-              <button onClick={this.newForPosition} className="fAddPosition">+ Add Positions</button>
+
+              <button onClick={this.newForPosition} className="fAddPosition addBut">+ Add Positions</button>
             </div>
-            <br /><br />
+
           </form>
         </div>
         <Resume data={this.state} />
@@ -354,55 +362,147 @@ class FullFun extends React.Component {
 
 function NewForEduRow(props) {
   var { cha, base, ind } = props;
-  return (<div className='divEduSer'>
-    <input name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" step="1" placeholder="Year of start" />
-    <input name="endYear" className="fEndYear" onChange={cha} value={base[ind].endYear} type="number" step="1" placeholder="Year of end" />
-    <input name="degree" className="fDegree" onChange={cha} value={base[ind].degree} type="text" placeholder="Degree" />
-    <input name="institution" className="fInstitution" onChange={cha} value={base[ind].institution} type="text" placeholder="Institution" />
-    <p>CGPA is preferred over Percentage</p>
-    <input name="CGPA" className="fCGPA" onChange={cha} value={base[ind].CGPA} type="number" min="0" max="10" step="0.01" placeholder="CGPA" />
-    <input name="percentage" className="fPercentage" onChange={cha} value={base[ind].percentage} type="number" min="0" max="100" step="0.01" placeholder="Percentage" />
-    <br /><br />
-  </div>
+  var numbering;
+  switch (ind) {
+    case 0:
+      numbering = "1st";
+      break;
+    case 1:
+      numbering = "2nd";
+      break;
+    case 2:
+      numbering = "3rd";
+      break;
+    default:
+      numbering = ind + 1 + "th";
+      break;
+  }
+  return (
+    <div className='divEduSer'>
+      <fieldset>
+        <legend>Your {numbering} Education:</legend>
+        <input id={"EdustaYea-" + ind} name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" min="1500" step="1" placeholder=" " />
+        <label htmlFor={"EdustaYea-" + ind}>Starting year</label>
+        <input id={"EduendYea-" + ind} name="endYear" className="fEndYear" onChange={cha} value={base[ind].endYear} type="number" min="1501" step="1" placeholder=" " />
+        <label htmlFor={"EduendYea-" + ind}>Ending year</label>
+        <input id={"EduDegree-" + ind} name="degree" className="fDegree" onChange={cha} value={base[ind].degree} type="text" placeholder=" " />
+        <label htmlFor={"EduDegree-" + ind}>Degree</label>
+        <input id={"EduInstitution-" + ind} name="institution" className="fInstitution" onChange={cha} value={base[ind].institution} type="text" placeholder=" " />
+        <label htmlFor={"EduInstitution-" + ind}>Institution</label>
+        <p><span style={{ color: "red" }}>*</span> CGPA is preferred over Percentage</p>
+        <input id={"EduCGPA-" + ind} name="CGPA" className="fCGPA" onChange={cha} value={base[ind].CGPA} type="number" min="0" max="10" step="0.01" placeholder=" " />
+        <label htmlFor={"EduCGPA-" + ind}>CGPA</label>
+        <input id={"EduPercentage-" + ind} name="percentage" className="fPercentage" onChange={cha} value={base[ind].percentage} type="number" min="0" max="100" step="0.01" placeholder=" " />
+        <label htmlFor={"EduPercentage-" + ind}>Percentage</label>
+      </fieldset>
+    </div>
   );
 
 }
 function NewForPro(props) {
   var { cha, achCha, base, ind } = props;
+  var numbering;
+  switch (ind) {
+    case 0:
+      numbering = "1st";
+      break;
+    case 1:
+      numbering = "2nd";
+      break;
+    case 2:
+      numbering = "3rd";
+      break;
+    default:
+      numbering = ind + 1 + "th";
+      break;
+  }
   var achi = base[ind].achievements.map((con, index) => {
-    return (<input name="achievements" className="fProAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" key={index} />);
+    return (
+      <React.Fragment key={index}>
+        <input id={"ProAchi-" + ind + index} name="achievements" className="fProAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" />
+        <label htmlFor={"ProAchi-" + ind + index}>Project Achievement-{index + 1}:</label>
+      </React.Fragment>
+    );
   });
   return (
     <div className='divProSer'>
-      <input name="category" className="fCategory" onChange={cha} value={base[ind].category} type="text" placeholder="Category" />
-      <input name="name" className="fName" onChange={cha} value={base[ind].name} type="text" placeholder="Name" />
-      <input name="link" className="fLink" onChange={cha} value={base[ind].link} type="text" placeholder="Link" />
-      <input name="role" className="fRole" onChange={cha} value={base[ind].role} type="text" placeholder="Role" />
-      <input name="teamSize" className="fTeamSize" onChange={cha} value={base[ind].teamSize} type="number" step="1" placeholder="Team Size" />
-      <input name="duration" className="fDuration" onChange={cha} value={base[ind].duration} type="text" placeholder="Duration" />
-      {achi}
-      <input name="date" className="fDate" onChange={cha} value={base[ind].date} type="text" placeholder="Date" />
-      <br /><br />
+      <fieldset>
+        <legend>Your {numbering} Project:</legend>
+        <input id={"ProCat-" + ind} name="category" className="fCategory" onChange={cha} value={base[ind].category} type="text" placeholder=" " />
+        <label htmlFor={"ProCat-" + ind}>Project Category</label>
+        <input id={"ProName-" + ind} name="name" className="fName" onChange={cha} value={base[ind].name} type="text" placeholder=" " />
+        <label htmlFor={"ProName-" + ind}>Project Name</label>
+        <input id={"ProLink-" + ind} name="link" className="fLink" onChange={cha} value={base[ind].link} type="text" placeholder=" " />
+        <label htmlFor={"ProLink-" + ind}>Project Link</label>
+        <input id={"ProRole-" + ind} name="role" className="fRole" onChange={cha} value={base[ind].role} type="text" placeholder="  " />
+        <label htmlFor={"ProRole-" + ind}>Your Role</label>
+        <input id={"ProTeamSize-" + ind} name="teamSize" className="fTeamSize" onChange={cha} value={base[ind].teamSize} type="number" step="1" placeholder=" " />
+        <label htmlFor={"ProTeamSize-" + ind}>Team Size</label>
+        <input id={"ProDuration-" + ind} name="duration" className="fDuration" onChange={cha} value={base[ind].duration} type="text" placeholder=" " />
+        <label htmlFor={"ProDuration-" + ind}>Duration</label>
+        {achi}
+        <input id={"ProDate-" + ind} name="date" className="fDate" onChange={cha} value={base[ind].date} type="text" placeholder=" " />
+        <label htmlFor={"ProDate-" + ind}>Date or Time Frame</label>
+      </fieldset>
     </div>
   );
 
 }
 function NewForSkills(props) {
   var { cha, base, ind } = props;
-  return (<div className='divSkillsSer'>
-    <input name="skill" className="fSkill" onChange={cha} value={base[ind][0]} type="text" placeholder="Skill Title" />
-    <input name="skillDes" className="fSkillDes" onChange={cha} value={base[ind][1]} type="text" placeholder="Skill Des" />
-    <br /><br />
-  </div>
+  var numbering;
+  var numbering;
+  switch (ind) {
+    case 0:
+      numbering = "1st";
+      break;
+    case 1:
+      numbering = "2nd";
+      break;
+    case 2:
+      numbering = "3rd";
+      break;
+    default:
+      numbering = ind + 1 + "th";
+      break;
+  }
+  return (
+    <div className='divSkillsSer'>
+      <fieldset>
+        <legend>Your {numbering} Skill:</legend>
+        <input id={"SkiTit-" + ind} name="skill" className="fSkill" onChange={cha} value={base[ind][0]} type="text" placeholder=" " />
+        <label htmlFor={"SkiTit-" + ind}>Skills sub-category</label>
+        <input id={"SkiDes-" + ind} name="skillDes" className="fSkillDes" onChange={cha} value={base[ind][1]} type="text" placeholder="Skill Des" />
+        <label htmlFor={"SkiDes-" + ind}>Skills list</label>
+
+      </fieldset>
+    </div>
   );
 
 }
 function NewForAchievement(props) {
   var { cha, base, ind } = props;
+  var numbering;
+  var numbering;
+  switch (ind) {
+    case 0:
+      numbering = "1st";
+      break;
+    case 1:
+      numbering = "2nd";
+      break;
+    case 2:
+      numbering = "3rd";
+      break;
+    default:
+      numbering = ind + 1 + "th";
+      break;
+  }
   return (
     <div className='divAchieveSer'>
-      <input name="achievements" className="fAchi" onChange={cha} value={base[ind]} type="text" placeholder="Achievement" />
-      <br /><br />
+      <input id={"AchiSer-" + ind} name="achievements" className="fAchi" onChange={cha} value={base[ind]} type="text" placeholder=" " />
+      <label htmlFor={"AchiSer-" + ind}>Your {numbering} Achievement</label>
+
     </div>
   );
 
@@ -410,15 +510,40 @@ function NewForAchievement(props) {
 
 function NewForPosition(props) {
   var { cha, achCha, base, ind } = props;
+  var numbering;
+  var numbering;
+  switch (ind) {
+    case 0:
+      numbering = "1st";
+      break;
+    case 1:
+      numbering = "2nd";
+      break;
+    case 2:
+      numbering = "3rd";
+      break;
+    default:
+      numbering = ind + 1 + "th";
+      break;
+  }
   var achi = base[ind].achievements.map((con, index) => {
-    return (<input name="achievements" className="fPosAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder="Achievement" key={index} />);
+    return (
+      <React.Fragment key={index}>
+        <input id={"PosAchi-" + ind + index} name="achievements" className="fPosAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
+        <label htmlFor={"PosAchi-" + ind + index}>Position Achievement-{index + 1}:</label>
+      </React.Fragment>
+    );
   });
   return (
     <div className='divPosSer'>
-      <input name="title" className="fTitle" onChange={cha} value={base[ind].title} type="text" placeholder="Title" />
-      <input name="timeline" className="fTimeline" onChange={cha} value={base[ind].timeline} type="text" placeholder="Timeline" />
-      {achi}
-      <br /><br />
+      <fieldset>
+        <legend>Your {numbering} Positions:</legend>
+        <input id={"PosTit-" + ind} name="title" className="fTitle" onChange={cha} value={base[ind].title} type="text" placeholder=" " />
+        <label htmlFor={"PosTit-" + ind}>Position Title</label>
+        <input id={"PosTimLin-" + ind} name="timeline" className="fTimeline" onChange={cha} value={base[ind].timeline} type="text" placeholder=" " />
+        <label htmlFor={"PosTimLin-" + ind}>Position Time</label>
+        {achi}
+      </fieldset>
     </div>
   );
 

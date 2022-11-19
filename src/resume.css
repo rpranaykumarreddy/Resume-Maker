@@ -77,25 +77,6 @@ a:active {
 }
 
 
-@media print {
-    .FormInter {
-        display: none !important;
-    }
-
-    nav {
-        display: none !important;
-    }
-
-    .resume {
-        height: max-content !important;
-        width: fit-content !important;
-        padding: 0px;
-        position: relative;
-        background-color: white;
-        border: none !important;
-        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75) !important;
-    }
-}
 .resume {
     padding: 30px 20px;
     margin: 0px 30px;
@@ -151,4 +132,94 @@ nav {
 .ReLink img {
     height: 20px;
     vertical-align: middle;
+}
+
+/*Label effect*/
+
+form {
+    display: block;
+    margin: 10px auto;
+    padding: 4px;
+}
+
+
+fieldset {
+    margin: 40px 10px 10px 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+
+legend {
+    background: #eee;
+    padding: 4px 10px;
+    color: #000;
+    margin: 0 auto;
+    display: block;
+}
+
+label {
+    display: block;
+    transform: translate(0, -2.75rem);
+}
+
+input {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.25rem;
+    border: none;
+    border-bottom: 2px solid #111;
+    transition: border-color 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: green;
+}
+
+.addBut {
+    margin: 10px 25px;
+    padding: 0.75rem 0px;
+    width: calc(100% - 50px);
+    border: 2px solid #111;
+    background-color: #111;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+@supports (not (-ms-ime-align:auto)) {
+    label {
+        color: #666;
+        font-weight: bold;
+        transform: translate(0.25rem, -1.5rem);
+        transition: all 0.2s ease-out;
+    }
+
+    input:focus+label,
+    input:not(:placeholder-shown)+label {
+        font-weight: normal;
+        color: #000;
+        transform: translate(0, -2.75rem);
+    }
+}
+
+@media print {
+    .FormInter {
+        display: none !important;
+    }
+
+    nav {
+        display: none !important;
+    }
+
+    .resume {
+        transform: scale(1) !important;
+        height: max-content !important;
+        width: fit-content !important;
+        padding: 0px;
+        position: relative;
+        background-color: white;
+        border: none !important;
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75) !important;
+    }
 }
