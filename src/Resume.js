@@ -51,6 +51,7 @@ function ReEducation(props) {
         </tr>
         )
     });
+    if (edu.length === 0) return null;
     return (
         <>
             <section>
@@ -99,7 +100,7 @@ function ReProjects(props) {
             </article>
         )
     });
-
+    if (pro.length === 0) return null;
     return (
         <>
             <section>
@@ -116,6 +117,7 @@ function ReSkills(props) {
         if (det[1].trim() === "") return null;
         return (<h3 key={index}><b>{det[0] + ": "}</b>{det[1]}</h3>);
     });
+    if (sk.length === 0) return null;
     return (
         <> <section>
             <h2>Skills</h2>
@@ -131,6 +133,7 @@ function ReAchivement(props) {
         if (det.trim() === "") return null;
         return (<li key={index}>{det}</li>);
     });
+    if (ach.length === 0) return null;
     return (<><section>
         <h2>Achievements</h2>
         <ul>
@@ -160,6 +163,7 @@ function RePosition(props) {
                 {LisFin}<br />
             </React.Fragment>);
     });
+    if (pos.length === 0) return null;
     return (<><section>
         <h2>Positions of Responsibilities</h2>
         {Lispos}

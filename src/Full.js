@@ -164,10 +164,8 @@ class FullFun extends React.Component {
     this.setState(data);
     var a = JSON.stringify(this.state);
     localStorage.setItem("ResumeData", a);
-    console.log("set", a, Date());
+    //console.log("set", a, Date());
   }
-
-
   handleChange = e => {
     const { name, value } = e.target;
     this.setData(prevState => ({ [name]: value }));
@@ -235,9 +233,6 @@ class FullFun extends React.Component {
     prevState.link = { ...prevState.link, [n]: v };
     this.setData(prevState);
   }
-
-
-
   setEducation = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -266,7 +261,6 @@ class FullFun extends React.Component {
     });
     this.setData(prevState);
   }
-
   setProAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -281,7 +275,6 @@ class FullFun extends React.Component {
     }
     this.setData(prevState);
   }
-
   setSkills = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -303,7 +296,6 @@ class FullFun extends React.Component {
     prevState.achievements[classIndex] = val;
     this.setData(prevState);
   }
-
   setPositions = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -318,7 +310,6 @@ class FullFun extends React.Component {
     });
     this.setData(prevState);
   }
-
   setPosAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -381,6 +372,11 @@ class FullFun extends React.Component {
     prevState.preview = !prevState.preview;
     this.setData(prevState);
   }
+  remove = (base, ind) => {
+    var prevState = base;
+    prevState.splice(ind, 1);
+    this.setData(prevState);
+  }
 
   render() {
     return (
@@ -416,14 +412,14 @@ class FullFun extends React.Component {
             </fieldset>
             <div id="divForEdu">
               {this.state.education.map((con, index) => {
-                return (<NewForEduRow cha={this.setEducation} base={this.state.education} ind={index} key={index}></NewForEduRow>);
+                return (<NewForEduRow rem={this.remove} cha={this.setEducation} base={this.state.education} ind={index} key={index}></NewForEduRow>);
               })}
               <button onClick={this.newForEdu} className="fAddEdu addBut">+ Add Education</button>
             </div>
 
             <div id="divForPro">
               {this.state.projects.map((con, index) => {
-                return (<NewForPro cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index} key={index}></NewForPro>);
+                return (<NewForPro rem={this.remove} cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index} key={index}></NewForPro>);
               })}
 
               <button onClick={this.newForProject} className="fAddProject addBut">+ Add Projects</button>
@@ -431,7 +427,7 @@ class FullFun extends React.Component {
 
             <div id="divForSkills">
               {this.state.skills.map((con, index) => {
-                return (<NewForSkills cha={this.setSkills} base={this.state.skills} ind={index} key={index}></NewForSkills>);
+                return (<NewForSkills rem={this.remove} cha={this.setSkills} base={this.state.skills} ind={index} key={index}></NewForSkills>);
               })}
 
               <button onClick={this.newForSkill} className="fAddSkills addBut">+ Add Skills</button>
@@ -441,7 +437,7 @@ class FullFun extends React.Component {
               <fieldset>
                 <legend>Your Achievements</legend>
                 {this.state.achievements.map((con, index) => {
-                  return (<NewForAchievement cha={this.setAchievement} base={this.state.achievements} ind={index} key={index}></NewForAchievement>);
+                  return (<NewForAchievement rem={this.remove} cha={this.setAchievement} base={this.state.achievements} ind={index} key={index}></NewForAchievement>);
                 })}
 
                 <button onClick={this.newForAchi} className="fAddAchi addBut">+ Add Achievement</button>
@@ -450,7 +446,7 @@ class FullFun extends React.Component {
 
             <div id="divForpositions">
               {this.state.positions.map((con, index) => {
-                return (<NewForPosition cha={this.setPositions} achCha={this.setPosAchi} base={this.state.positions} ind={index} key={index}></NewForPosition>);
+                return (<NewForPosition rem={this.remove} cha={this.setPositions} achCha={this.setPosAchi} base={this.state.positions} ind={index} key={index}></NewForPosition>);
               })}
 
               <button onClick={this.newForPosition} className="fAddPosition addBut">+ Add Positions</button>
@@ -470,7 +466,7 @@ class FullFun extends React.Component {
 
 
 function NewForEduRow(props) {
-  var { cha, base, ind } = props;
+  var { rem, cha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -490,6 +486,7 @@ function NewForEduRow(props) {
     <div className='divEduSer'>
       <fieldset>
         <legend>Your {numbering} Education</legend>
+        <span onClick={() => { rem(base, ind) }} className="remBut">&#10060;</span>
         <div className='spliFor'>
           <div className='spliChd'>
             <input id={"EdustaYea-" + ind} name="startYear" className="fStartYear" onChange={cha} value={base[ind].startYear} type="number" min="1500" step="1" placeholder=" " />
@@ -521,7 +518,7 @@ function NewForEduRow(props) {
 
 }
 function NewForPro(props) {
-  var { cha, achCha, base, ind } = props;
+  var { rem, cha, achCha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -549,6 +546,7 @@ function NewForPro(props) {
     <div className='divProSer'>
       <fieldset>
         <legend>Your {numbering} Project</legend>
+        <span onClick={() => { rem(base, ind) }} className="remBut">&#10060;</span>
         <input id={"ProCat-" + ind} name="category" className="fCategory" onChange={cha} value={base[ind].category} type="text" placeholder=" " />
         <label htmlFor={"ProCat-" + ind}>Project Category</label>
         <input id={"ProName-" + ind} name="name" className="fName" onChange={cha} value={base[ind].name} type="text" placeholder=" " />
@@ -582,7 +580,7 @@ function NewForPro(props) {
 
 }
 function NewForSkills(props) {
-  var { cha, base, ind } = props;
+  var { rem, cha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -602,6 +600,7 @@ function NewForSkills(props) {
     <div className='divSkillsSer'>
       <fieldset>
         <legend>Your {numbering} Skill</legend>
+        <span onClick={() => { rem(base, ind) }} className="remBut">&#10060;</span>
         <input id={"SkiTit-" + ind} name="skill" className="fSkill" onChange={cha} value={base[ind][0]} type="text" placeholder=" " />
         <label htmlFor={"SkiTit-" + ind}>Skills sub-category</label>
         <input id={"SkiDes-" + ind} name="skillDes" className="fSkillDes" onChange={cha} value={base[ind][1]} type="text" placeholder=" " />
@@ -613,7 +612,7 @@ function NewForSkills(props) {
 
 }
 function NewForAchievement(props) {
-  var { cha, base, ind } = props;
+  var { rem, cha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -631,8 +630,11 @@ function NewForAchievement(props) {
   }
   return (
     <div className='divAchieveSer'>
-      <input id={"AchiSer-" + ind} name="achievements" className="fAchi" onChange={cha} value={base[ind]} type="text" placeholder=" " />
-      <label htmlFor={"AchiSer-" + ind}>Your {numbering} Achievement</label>
+      <div className='DivAchiFor'>
+        <input id={"AchiSer-" + ind} name="achievements" className="fAchi" onChange={cha} value={base[ind]} type="text" placeholder=" " />
+        <label htmlFor={"AchiSer-" + ind}>Your {numbering} Achievement</label>
+        <span onClick={() => { rem(base, ind) }} className="remBut">&#10060;</span>
+      </div>
 
     </div>
   );
@@ -640,7 +642,7 @@ function NewForAchievement(props) {
 }
 
 function NewForPosition(props) {
-  var { cha, achCha, base, ind } = props;
+  var { rem, cha, achCha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -668,6 +670,7 @@ function NewForPosition(props) {
     <div className='divPosSer'>
       <fieldset>
         <legend>Your {numbering} Positions</legend>
+        <span onClick={() => { rem(base, ind) }} className="remBut">&#10060;</span>
         <input id={"PosTit-" + ind} name="title" className="fTitle" onChange={cha} value={base[ind].title} type="text" placeholder=" " />
         <label htmlFor={"PosTit-" + ind}>Position Title</label>
         <input id={"PosTimLin-" + ind} name="timeline" className="fTimeline" onChange={cha} value={base[ind].timeline} type="text" placeholder=" " />
