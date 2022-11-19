@@ -38,6 +38,10 @@ p {
     line-height: 107% !important;
 }
 
+.EduTable {
+    width: 100%;
+}
+
 table,
 th,
 td {
@@ -79,29 +83,22 @@ a:active {
 
 .resume {
     padding: 30px 20px;
-    margin: 0px 30px;
-    /*height: 90vh;
-    width: calc(90vh / 1.4142);*/
-    transform: scale(0.7);
-    width: 210mm;
-    height: 90vh;
     overflow: auto;
     position: fixed;
-    top: 5vh;
-    right: 0.5vw;
     background-color: white;
     border: solid 1px black;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
 .FormInter {
-    margin: 0px 30px;
     height: 90vh;
     overflow: auto;
-    width: calc(92vw - 210mm);
+    width: 30vw;
     position: fixed;
     top: 5vh;
-    left: 0.5vw;
+    left: 1.5vw;
+    z-index: 1000;
+    margin: 0px;
     background-color: white;
     border: solid 1px black;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
@@ -134,7 +131,7 @@ nav {
     vertical-align: middle;
 }
 
-/*Label effect*/
+/*Label & fieldset effect*/
 
 form {
     display: block;
@@ -149,16 +146,28 @@ fieldset {
     border: 1px solid #ccc;
 }
 
+.firFieSet {
+    margin: 10px 10px 10px 10px !important;
+}
+
+
 legend {
-    background: #eee;
+
+    background-color: #111;
+    color: #fff;
     padding: 4px 10px;
-    color: #000;
     margin: 0 auto;
     display: block;
 }
 
 label {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     display: block;
+    cursor: pointer;
     transform: translate(0, -2.75rem);
 }
 
@@ -203,6 +212,79 @@ input:focus {
     }
 }
 
+.ZeroFieSet {
+    margin: 0px 10px 10px 10px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.divCheBo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    margin-top: 0px;
+    padding: 0px;
+    position: relative;
+    appearance: none;
+    width: 2rem;
+    height: 1rem;
+    background: #ccc;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+input:checked[type="checkbox"] {
+    background: red;
+}
+
+input[type="checkbox"]::after {
+    position: absolute;
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    top: 0;
+    left: 0;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+    transition: 0.4s;
+}
+
+input:checked[type="checkbox"]::after {
+    left: 50%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.spliFor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spliChd {
+    width: 48%;
+}
+
+
 @media print {
     .FormInter {
         display: none !important;
@@ -213,12 +295,14 @@ input:focus {
     }
 
     .resume {
+        top: 0px !important;
+        right: 0px !important;
         transform: scale(1) !important;
         height: max-content !important;
         width: fit-content !important;
-        padding: 0px;
-        position: relative;
-        background-color: white;
+        padding: 0px !important;
+        position: absolute !important;
+        background-color: white !important;
         border: none !important;
         box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75) !important;
     }

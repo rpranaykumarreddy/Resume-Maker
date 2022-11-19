@@ -55,7 +55,7 @@ function ReEducation(props) {
         <>
             <section>
                 <h2>Education</h2>
-                <table className="teCen">
+                <table className="teCen EduTable">
                     <tbody>
                         <tr>
                             <th className="noWrap">Year</th>
@@ -168,8 +168,22 @@ function RePosition(props) {
 }
 function Resume(props) {
     const d = props.data;
+    /*1px = 25.4mm / PPI*/
+    /*millimeters = pixels * ( 25.4 / PPI )*/
+    var rat = GetResScale();
+    var SScal = "scale(" + (rat) + ")";
+    var Shei = (90 / rat) + "vh";
+    var Stop = GetResTop("5vh");
+    var Srig = GetResLeft("1.5vw");
+    var resSty = {
+        "width": "210mm",
+        "transform": SScal,
+        "height": Shei,
+        "top": Stop,
+        "right": Srig,
+    }
     return (<>
-        <div className="resume">
+        <div id="resume" className="resume" style={resSty}>
             <ReHeader ob={d} />
             <ReEducation ob={d.education} />
             <ReProjects ob={d.projects} lik={d.portfolioLink} />
@@ -180,4 +194,53 @@ function Resume(props) {
     </>
     );
 }
+
+
+
+function GetResScale() {
+    const el1 = document.createElement('div');
+    el1.style = 'width: 210mm;'
+    document.body.appendChild(el1);
+    const in1 = el1.offsetWidth;
+    document.body.removeChild(el1);
+    const el2 = document.createElement('div');
+    el2.style = 'width: 65vw;'
+    document.body.appendChild(el2);
+    const in2 = el2.offsetWidth;
+    document.body.removeChild(el2);
+    return in2 / in1;
+}
+
+function GetResTop(int) {
+    const el1 = document.createElement('div');
+    var Shei = (90 / GetResScale()) + "vh";
+    el1.style = ('height: ' + Shei);
+    document.body.appendChild(el1);
+    const in1 = el1.offsetHeight;
+    document.body.removeChild(el1);
+    const el2 = document.createElement('div');
+    el2.style = 'height: 90vh;'
+    document.body.appendChild(el2);
+    const in2 = el2.offsetHeight;
+    document.body.removeChild(el2);
+    var Stop = (in2 - in1) ? ("calc(" + int + " + " + ((in2 - in1) / 2) + "px)") : ("calc(" + int + " - " + ((in1 - in2) / 2) + "px)");
+
+    return Stop;
+}
+function GetResLeft(int) {
+    const el1 = document.createElement('div');
+    el1.style = 'width: 210mm;'
+    document.body.appendChild(el1);
+    const in1 = el1.offsetWidth;
+    document.body.removeChild(el1);
+    const el2 = document.createElement('div');
+    el2.style = 'width: 65vw;'
+    document.body.appendChild(el2);
+    const in2 = el2.offsetWidth;
+    document.body.removeChild(el2);
+    var Stop = (in2 - in1) ? ("calc(" + int + " + " + ((in2 - in1) / 2) + "px)") : ("calc(" + int + " - "((in1 - in2) / 2) + "px)");
+
+    return Stop;
+}
+
 export default Resume;
