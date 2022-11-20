@@ -72,6 +72,36 @@ function ReEducation(props) {
         </>
     );
 }
+function ReExperience(props) {
+    const pro = props.ob;
+    const tabPro = pro.map((det, index) => {
+        const com = (det.company) ? (<><span>{det.company}</span>&nbsp;</>) : null;
+        const aHre = ((det.link).trim() !== "") ? (<>&#124;&nbsp;<span ><a href={det.link} target="_blank" rel="noopener noreferrer">Website</a></span></>) : null;
+        const rolNam = ((det.role).trim() !== "") ? (<><b><span>{det.role}</span></b></>) : null;
+        const achievement = det.achievements;
+
+        const achiv = achievement.map((ach, index) => {
+            if (ach.trim() === "") return null;
+            return (<li key={index}>{ach}</li>);
+        });
+        return (
+            <article className="marBot" key={index}>
+                <h3><b>{com}{aHre}</b><span className="proDate">{det.timeline}</span></h3>
+                <h3>{rolNam}</h3>
+                <ul>{achiv}</ul>
+            </article>
+        )
+    });
+    if (pro.length === 0) return null;
+    return (
+        <>
+            <section>
+                <h2>Experience</h2>
+                {tabPro}
+            </section>
+        </>
+    );
+}
 function ReProjects(props) {
     const pro = props.ob;
     const link = props.lik;
@@ -190,6 +220,7 @@ function Resume(props) {
         <div id="resume" className="resume" style={resSty}>
             <ReHeader ob={d} />
             <ReEducation ob={d.education} />
+            <ReExperience ob={d.experience} />
             <ReProjects ob={d.projects} lik={d.portfolioLink} />
             <ReSkills ob={d.skills} />
             <ReAchivement ob={d.achievements} />

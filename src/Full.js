@@ -38,6 +38,19 @@ class FullFun extends React.Component {
         CGPA: "",
         percentage: "87.2"
       }],
+      experience: [{
+        company: "Company Name",
+        link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
+        timeline: "September 2022 - October 2022",
+        role: "Role",
+        achievements: ["Achievement-1", "Achievement-2"]
+      }, {
+        company: "Company Name",
+        link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
+        timeline: "September 2022 - October 2022",
+        role: "Role",
+        achievements: ["Achievement-1", "Achievement-2"]
+      }],
       portfolioLink: "https://pranay.wethinc.in",
       projects: [{
         category: "Chrome Extension",
@@ -104,7 +117,20 @@ class FullFun extends React.Component {
           institution: "Institution-2",
           percentage: "90"
         }],
-        portfolioLink: "https://www.google.com",
+        experience: [{
+          company: "Company Name",
+          link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
+          timeline: "September 2022 - October 2022",
+          role: "Role",
+          achievements: ["Achievement-1", "Achievement-2"]
+        }, {
+          company: "Company Name",
+          link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
+          timeline: "September 2022 - October 2022",
+          role: "Role",
+          achievements: ["Achievement-1", "Achievement-2"]
+        }],
+        portfolioLink: "www.google.com",
         projects: [{
           category: "Project Category-1",
           name: "Project-1",
@@ -169,8 +195,7 @@ class FullFun extends React.Component {
   handleChange = e => {
     const { name, value } = e.target;
     this.setData(prevState => ({ [name]: value }));
-  };
-
+  }
   setGmail = (e) => {
     e.preventDefault();
     var { name, value } = e.target;
@@ -247,6 +272,35 @@ class FullFun extends React.Component {
     });
     this.setData(prevState);
   }
+  setExperience = (e) => {
+    e.preventDefault();
+    var prevState = this.state;
+    var classIndex = showIndex(e.target, "f");
+    var classList = ["fCompany", "fLink", "fDate", "fRole"];
+    classList.forEach(className => {
+      var temp = document.getElementsByClassName(className);
+      var val = temp[classIndex].value;
+      var nam = temp[classIndex].name;
+      prevState.experience[classIndex] = { ...prevState.experience[classIndex], [nam]: val };
+    });
+    this.setData(prevState);
+  }
+  setExpAchi = (e) => {
+    e.preventDefault();
+    var prevState = this.state;
+    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
+    var achIn = 0;
+    var ele = document.getElementsByClassName("fExpAchievements");
+    console.log(ele);
+    for (var i = 0; i < ele.length; i++) {
+      if ((showIndex(ele[i].parentNode.parentNode, "d")) === classIndex) {
+        var val = ele[i].value;
+        console.log(classIndex, achIn, prevState.experience[classIndex]);
+        prevState.experience[classIndex].achievements[achIn++] = val;
+      }
+    }
+    this.setData(prevState);
+  }
   setProjects = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -264,11 +318,11 @@ class FullFun extends React.Component {
   setProAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
-    var classIndex = showIndex(e.target.parentNode, "d");
+    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
     var achIn = 0;
     var ele = document.getElementsByClassName("fProAchievements");
     for (var i = 0; i < ele.length; i++) {
-      if ((showIndex(ele[i].parentNode, "d")) === classIndex) {
+      if ((showIndex(ele[i].parentNode.parentNode, "d")) === classIndex) {
         var val = ele[i].value;
         prevState.projects[classIndex].achievements[achIn++] = val;
       }
@@ -296,6 +350,7 @@ class FullFun extends React.Component {
     prevState.achievements[classIndex] = val;
     this.setData(prevState);
   }
+
   setPositions = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -313,11 +368,11 @@ class FullFun extends React.Component {
   setPosAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
-    var classIndex = showIndex(e.target.parentNode, "d");
+    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
     var achIn = 0;
     var ele = document.getElementsByClassName("fPosAchievements");
     for (var i = 0; i < ele.length; i++) {
-      if ((showIndex(ele[i].parentNode, "d")) === classIndex) {
+      if ((showIndex(ele[i].parentNode.parentNode, "d")) === classIndex) {
         var val = ele[i].value;
         prevState.positions[classIndex].achievements[achIn++] = val;
       }
@@ -365,8 +420,7 @@ class FullFun extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     console("Submitted" + JSON.stringify(this.state));
-  };
-
+  }
   togData = (e) => {
     var prevState = this.state;
     prevState.preview = !prevState.preview;
@@ -415,6 +469,14 @@ class FullFun extends React.Component {
                 return (<NewForEduRow rem={this.remove} cha={this.setEducation} base={this.state.education} ind={index} key={index}></NewForEduRow>);
               })}
               <button onClick={this.newForEdu} className="fAddEdu addBut">+ Add Education</button>
+            </div>
+
+            <div id="divForExp">
+              {this.state.experience.map((con, index) => {
+                return (<NewForExp rem={this.remove} cha={this.setExperience} achCha={this.setExpAchi} base={this.state.experience} ind={index} key={index}></NewForExp>);
+              })}
+
+              <button onClick={this.newForProject} className="fAddProject addBut">+ Add Experience</button>
             </div>
 
             <div id="divForPro">
@@ -512,6 +574,57 @@ function NewForEduRow(props) {
             <label htmlFor={"EduPercentage-" + ind}>Percentage</label>
           </div>
         </div>
+      </fieldset>
+    </div>
+  );
+
+}
+function NewForExp(props) {
+  var { rem, cha, achCha, base, ind } = props;
+  var numbering;
+  switch (ind) {
+    case 0:
+      numbering = "1st";
+      break;
+    case 1:
+      numbering = "2nd";
+      break;
+    case 2:
+      numbering = "3rd";
+      break;
+    default:
+      numbering = ind + 1 + "th";
+      break;
+  }
+
+  var achi = base[ind].achievements.map((con, index) => {
+    return (
+      <React.Fragment key={index}>
+        <input id={"ExpAchi-" + ind + index} name="achievements" className="fExpAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
+        <label htmlFor={"ExpAchi-" + ind + index}>Role Achievement-{index + 1}:</label>
+      </React.Fragment>
+    );
+  });
+  return (
+    <div className='divExpSer'>
+      <fieldset>
+        <legend>Your {numbering} Experience</legend>
+        <span onClick={() => { rem(base, ind) }} className="remBut">&#10060;</span>
+        <input id={"ExpCat-" + ind} name="company" className="fCompany" onChange={cha} value={base[ind].company} type="text" placeholder=" " />
+        <label htmlFor={"ExpCat-" + ind}>Company Name</label>
+        <input id={"ExpLink-" + ind} name="link" className="fLink" onChange={cha} value={base[ind].link} type="text" placeholder=" " />
+        <label htmlFor={"ExpLink-" + ind}>Work Link</label>
+        <div className='spliFor'>
+          <div className='spliChd'>
+            <input id={"ExpRole-" + ind} name="role" className="fRole" onChange={cha} value={base[ind].role} type="text" placeholder=" " />
+            <label htmlFor={"ExpRole-" + ind}>Your Role</label></div>
+          <div className='spliChd'>
+            <input id={"ExpDate-" + ind} name="timeline" className="fDate" onChange={cha} value={base[ind].timeline} type="text" placeholder=" " />
+            <label htmlFor={"ExpDate-" + ind}>Date or Time Frame</label>
+          </div>
+        </div>
+        {achi}
+
       </fieldset>
     </div>
   );
@@ -640,7 +753,6 @@ function NewForAchievement(props) {
   );
 
 }
-
 function NewForPosition(props) {
   var { rem, cha, achCha, base, ind } = props;
   var numbering;
