@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/Resume-Maker/static/css/main.d960f5f0.css",
+    "main.js": "/Resume-Maker/static/js/main.ceac1a75.js",
+    "static/js/787.5cb99982.chunk.js": "/Resume-Maker/static/js/787.5cb99982.chunk.js",
+    "static/media/whatsapp.svg": "/Resume-Maker/static/media/whatsapp.7dc3f3267bee9b39fd8d08466208e48a.svg",
+    "static/media/github.svg": "/Resume-Maker/static/media/github.4cd3a2bc790226c346ae943ec1622139.svg",
+    "index.html": "/Resume-Maker/index.html",
+    "static/media/gmail.svg": "/Resume-Maker/static/media/gmail.e1bc2ceb745debf9361ad2160a79823a.svg",
+    "static/media/linkedin.svg": "/Resume-Maker/static/media/linkedin.8762f6e957e5d6c297b9cbc434ecf218.svg",
+    "main.d960f5f0.css.map": "/Resume-Maker/static/css/main.d960f5f0.css.map",
+    "main.ceac1a75.js.map": "/Resume-Maker/static/js/main.ceac1a75.js.map",
+    "787.5cb99982.chunk.js.map": "/Resume-Maker/static/js/787.5cb99982.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d960f5f0.css",
+    "static/js/main.ceac1a75.js"
+  ]
+}
