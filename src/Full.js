@@ -1,6 +1,7 @@
 import './App.css';
 import Resume from './Resume';
 import React from "react";
+import saveAs from 'file-saver';
 class FullFun extends React.Component {
   constructor(props) {
     super(props);
@@ -174,7 +175,6 @@ class FullFun extends React.Component {
       }
     };
   }
-
   componentDidMount() {
     var a = localStorage.getItem("ResumeData");
     if (a != null) {
@@ -182,7 +182,7 @@ class FullFun extends React.Component {
         a = JSON.parse(a);
         a.preview = false;
         this.setState(a);
-        console.log("got Data", this.state, Date());
+        //console.log("got Data", this.state, Date());
       }
     }
   }
@@ -288,14 +288,13 @@ class FullFun extends React.Component {
   setExpAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
-    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
+    var classIndex = showIndex(e.target.parentNode.parentNode.parentNode, "d");
     var achIn = 0;
     var ele = document.getElementsByClassName("fExpAchievements");
-    console.log(ele);
     for (var i = 0; i < ele.length; i++) {
-      if ((showIndex(ele[i].parentNode.parentNode, "d")) === classIndex) {
+      if ((showIndex(ele[i].parentNode.parentNode.parentNode, "d")) === classIndex) {
         var val = ele[i].value;
-        console.log(classIndex, achIn, prevState.experience[classIndex]);
+        //console.log(classIndex, achIn, prevState.experience[classIndex]);
         prevState.experience[classIndex].achievements[achIn++] = val;
       }
     }
@@ -350,7 +349,6 @@ class FullFun extends React.Component {
     prevState.achievements[classIndex] = val;
     this.setData(prevState);
   }
-
   setPositions = (e) => {
     e.preventDefault();
     var prevState = this.state;
@@ -431,12 +429,42 @@ class FullFun extends React.Component {
     prevState.splice(ind, 1);
     this.setData(prevState);
   }
-
+  removeInAchi = (base, need, ind) => {
+    var prevState = base;
+    prevState[need].achievements.splice(ind, 1);
+    this.setData(prevState);
+  }
+  exportFile = () => {
+    let textout = JSON.stringify(this.state);
+    var blob = new Blob([textout], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, (this.state.fullName + "-Resume saved file.txt"));
+  }
+  showFile = async (e) => {
+    e.preventDefault()
+    const reader = new FileReader()
+    reader.onload = async (e) => {
+      let textin = (e.target.result)
+      console.log(textin)
+      let obj = JSON.parse(textin);
+      this.setState(obj);
+    };
+    reader.readAsText(e.target.files[0])
+  }
   render() {
     return (
       <>
         <div className='FormInter'>
-          <button onClick={this.generatePDF} className="fAddEdu addBut">Print PDF</button>
+
+          <div className='fulDivBut'>
+            <div className='FDBChd'>
+              <button onClick={this.exportFile} className="addBut equal">Save as Text File</button></div>
+            <div className='FDBChd'>
+              <label for="file-upload" class="custom-file-upload equal">
+                Custom Upload
+              </label>
+              <input type="file" id="file-upload" onChange={this.showFile} /></div>
+          </div>
+          <button onClick={this.generatePDF} className="addBut">Print as PDF</button>
           <form onSubmit={this.handleSubmit}>
             <fieldset className='ZeroFieSet'>
               <div className='spliFor'>
@@ -473,7 +501,7 @@ class FullFun extends React.Component {
 
             <div id="divForExp">
               {this.state.experience.map((con, index) => {
-                return (<NewForExp rem={this.remove} cha={this.setExperience} achCha={this.setExpAchi} base={this.state.experience} ind={index} key={index}></NewForExp>);
+                return (<NewForExp rem={this.remove} achiRem={this.removeInAchi} cha={this.setExperience} achCha={this.setExpAchi} base={this.state.experience} ind={index} key={index}></NewForExp>);
               })}
 
               <button onClick={this.newForProject} className="fAddProject addBut">+ Add Experience</button>
@@ -580,7 +608,7 @@ function NewForEduRow(props) {
 
 }
 function NewForExp(props) {
-  var { rem, cha, achCha, base, ind } = props;
+  var { rem, achiRem, cha, achCha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -600,8 +628,11 @@ function NewForExp(props) {
   var achi = base[ind].achievements.map((con, index) => {
     return (
       <React.Fragment key={index}>
-        <input id={"ExpAchi-" + ind + index} name="achievements" className="fExpAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
-        <label htmlFor={"ExpAchi-" + ind + index}>Role Achievement-{index + 1}:</label>
+        <div className='DivAchiFor'>
+          <input id={"ExpAchi-" + ind + index} name="achievements" className="fExpAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
+          <label htmlFor={"ExpAchi-" + ind + index}>Role Achievement-{index + 1}:</label>
+          <span onClick={() => { achiRem(base, ind, index) }} className="remBut">&#10060;</span>
+        </div>
       </React.Fragment>
     );
   });

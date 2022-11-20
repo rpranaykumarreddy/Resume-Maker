@@ -76,8 +76,8 @@ function ReExperience(props) {
     const pro = props.ob;
     const tabPro = pro.map((det, index) => {
         const com = (det.company) ? (<><span>{det.company}</span>&nbsp;</>) : null;
+        const rolNam = ((det.role).trim() !== "") ? (<><b>&#124;&nbsp;<span>{det.role}</span>&nbsp;</b></>) : null;
         const aHre = ((det.link).trim() !== "") ? (<>&#124;&nbsp;<span ><a href={det.link} target="_blank" rel="noopener noreferrer">Website</a></span></>) : null;
-        const rolNam = ((det.role).trim() !== "") ? (<><b><span>{det.role}</span></b></>) : null;
         const achievement = det.achievements;
 
         const achiv = achievement.map((ach, index) => {
@@ -86,8 +86,7 @@ function ReExperience(props) {
         });
         return (
             <article className="marBot" key={index}>
-                <h3><b>{com}{aHre}</b><span className="proDate">{det.timeline}</span></h3>
-                <h3>{rolNam}</h3>
+                <h3><b>{com}{rolNam}{aHre}</b><span className="proDate">{det.timeline}</span></h3>
                 <ul>{achiv}</ul>
             </article>
         )

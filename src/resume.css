@@ -12,6 +12,7 @@
 
 body {
     margin: 25px 20px;
+    background-color: rgb(29, 29, 29);
 }
 
 .teCen {
@@ -114,14 +115,23 @@ nav {
     top: 0px;
     left: 0px;
     width: 100vw;
-    height: 5vh;
-    background-color: #ddd;
-    color: #000;
+    background-color: rgb(29, 29, 29);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 3px 0px;
 }
+
+nav a:link,
+nav a:visited,
+nav a:hover,
+nav a:active {
+    color: #f33170 !important;
+}
+
+
 
 .divReLink .ReLink {
     border-right: 2px black solid;
@@ -306,6 +316,43 @@ input[type=number] {
     cursor: pointer;
 }
 
+.custom-file-upload {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    transition: none;
+    transform: translate(0, 0);
+    margin: 10px 25px;
+    padding: 0.75rem 0px;
+    width: calc(100% - 50px);
+    border: 2px solid #111;
+    background-color: #111;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.84rem;
+}
+
+.fulDivBut {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.fulDivBut .FDBChd {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fulDivBut .FDBChd .equal {
+    width: 90% !important;
+    margin: 15px 4px 8px 4px !important;
+}
+
+#file-upload {
+    display: none;
+}
 
 @media print {
     .FormInter {
