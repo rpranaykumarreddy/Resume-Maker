@@ -355,6 +355,10 @@ input[type=number] {
 }
 
 @media print {
+    body {
+        background-color: white !important;
+    }
+
     .FormInter {
         display: none !important;
     }
