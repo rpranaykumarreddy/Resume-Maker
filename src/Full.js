@@ -317,11 +317,11 @@ class FullFun extends React.Component {
   setProAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
-    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
+    var classIndex = showIndex(e.target.parentNode.parentNode.parentNode, "d");
     var achIn = 0;
     var ele = document.getElementsByClassName("fProAchievements");
     for (var i = 0; i < ele.length; i++) {
-      if ((showIndex(ele[i].parentNode.parentNode, "d")) === classIndex) {
+      if ((showIndex(ele[i].parentNode.parentNode.parentNode, "d")) === classIndex) {
         var val = ele[i].value;
         prevState.projects[classIndex].achievements[achIn++] = val;
       }
@@ -366,11 +366,11 @@ class FullFun extends React.Component {
   setPosAchi = (e) => {
     e.preventDefault();
     var prevState = this.state;
-    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
+    var classIndex = showIndex(e.target.parentNode.parentNode.parentNode, "d");
     var achIn = 0;
     var ele = document.getElementsByClassName("fPosAchievements");
     for (var i = 0; i < ele.length; i++) {
-      if ((showIndex(ele[i].parentNode.parentNode, "d")) === classIndex) {
+      if ((showIndex(ele[i].parentNode.parentNode.parentNode, "d")) === classIndex) {
         var val = ele[i].value;
         prevState.positions[classIndex].achievements[achIn++] = val;
       }
@@ -381,6 +381,23 @@ class FullFun extends React.Component {
     e.preventDefault();
     var prevState = this.state;
     prevState.education.push({ startYear: "", endYear: "", degree: "", institution: "", CGPA: "", percentage: "" });
+    this.setData(prevState);
+  }
+
+  newForExperience = (e) => {
+    e.preventDefault();
+    var prevState = this.state;
+    prevState.experience.push({
+      company: "", link: "", date: "", role: "", achievements: ["", ""]
+    });
+    this.setData(prevState);
+  }
+  newForExpAchi = (e) => {
+    e.preventDefault();
+    var classIndex = showIndex(e.target.parentNode.parentNode, "d");
+    console.log(classIndex);
+    var prevState = this.state;
+    prevState.experience[classIndex].achievements.push("");
     this.setData(prevState);
   }
   newForProject = (e) => {
@@ -410,7 +427,6 @@ class FullFun extends React.Component {
       title: "", timeline: "", achievements: ["", ""]
     });
     this.setData(prevState);
-
   }
   generatePDF() {
     window.print();
@@ -427,6 +443,13 @@ class FullFun extends React.Component {
   remove = (base, ind) => {
     var prevState = base;
     prevState.splice(ind, 1);
+    this.setData(prevState);
+  }
+  newForDivAchi = (base, index) => {
+    var prevState = base;
+    console.log(prevState);
+    prevState[index].achievements.push("");
+    console.log(prevState);
     this.setData(prevState);
   }
   removeInAchi = (base, need, ind) => {
@@ -459,7 +482,7 @@ class FullFun extends React.Component {
             <div className='FDBChd'>
               <button onClick={this.exportFile} className="addBut equal">Save as Text File</button></div>
             <div className='FDBChd'>
-              <label for="file-upload" class="custom-file-upload equal">
+              <label htmlFor="file-upload" className="custom-file-upload equal">
                 Custom Upload
               </label>
               <input type="file" id="file-upload" onChange={this.showFile} /></div>
@@ -501,15 +524,15 @@ class FullFun extends React.Component {
 
             <div id="divForExp">
               {this.state.experience.map((con, index) => {
-                return (<NewForExp rem={this.remove} achiRem={this.removeInAchi} cha={this.setExperience} achCha={this.setExpAchi} base={this.state.experience} ind={index} key={index}></NewForExp>);
+                return (<NewForExp rem={this.remove} achiRem={this.removeInAchi} achiAdd={this.newForDivAchi} cha={this.setExperience} achCha={this.setExpAchi} base={this.state.experience} ind={index} key={index}></NewForExp>);
               })}
 
-              <button onClick={this.newForProject} className="fAddProject addBut">+ Add Experience</button>
+              <button onClick={this.newForExperience} className="fAddProject addBut">+ Add Experience</button>
             </div>
 
             <div id="divForPro">
               {this.state.projects.map((con, index) => {
-                return (<NewForPro rem={this.remove} cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index} key={index}></NewForPro>);
+                return (<NewForPro rem={this.remove} achiRem={this.removeInAchi} achiAdd={this.newForDivAchi} cha={this.setProjects} achCha={this.setProAchi} base={this.state.projects} ind={index} key={index}></NewForPro>);
               })}
 
               <button onClick={this.newForProject} className="fAddProject addBut">+ Add Projects</button>
@@ -536,7 +559,7 @@ class FullFun extends React.Component {
 
             <div id="divForpositions">
               {this.state.positions.map((con, index) => {
-                return (<NewForPosition rem={this.remove} cha={this.setPositions} achCha={this.setPosAchi} base={this.state.positions} ind={index} key={index}></NewForPosition>);
+                return (<NewForPosition rem={this.remove} cha={this.setPositions} achiRem={this.removeInAchi} achiAdd={this.newForDivAchi} achCha={this.setPosAchi} base={this.state.positions} ind={index} key={index}></NewForPosition>);
               })}
 
               <button onClick={this.newForPosition} className="fAddPosition addBut">+ Add Positions</button>
@@ -608,7 +631,7 @@ function NewForEduRow(props) {
 
 }
 function NewForExp(props) {
-  var { rem, achiRem, cha, achCha, base, ind } = props;
+  var { rem, achiRem, achiAdd, cha, achCha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -656,13 +679,14 @@ function NewForExp(props) {
         </div>
         {achi}
 
+        <button onClick={() => { achiAdd(base, ind) }} className="fAddExpAchi addBut">+ Add Achievement</button>
       </fieldset>
     </div>
   );
 
 }
 function NewForPro(props) {
-  var { rem, cha, achCha, base, ind } = props;
+  var { rem, achiRem, achiAdd, cha, achCha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -681,8 +705,11 @@ function NewForPro(props) {
   var achi = base[ind].achievements.map((con, index) => {
     return (
       <React.Fragment key={index}>
-        <input id={"ProAchi-" + ind + index} name="achievements" className="fProAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
-        <label htmlFor={"ProAchi-" + ind + index}>Project Achievement-{index + 1}:</label>
+        <div className='DivAchiFor'>
+          <input id={"ProAchi-" + ind + index} name="achievements" className="fProAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
+          <label htmlFor={"ProAchi-" + ind + index}>Project Achievement-{index + 1}:</label>
+          <span onClick={() => { achiRem(base, ind, index) }} className="remBut">&#10060;</span>
+        </div>
       </React.Fragment>
     );
   });
@@ -718,6 +745,7 @@ function NewForPro(props) {
         </div>
         {achi}
 
+        <button onClick={() => { achiAdd(base, ind) }} className="fAddExpAchi addBut">+ Add Achievement</button>
       </fieldset>
     </div>
   );
@@ -785,7 +813,7 @@ function NewForAchievement(props) {
 
 }
 function NewForPosition(props) {
-  var { rem, cha, achCha, base, ind } = props;
+  var { rem, achiRem, achiAdd, cha, achCha, base, ind } = props;
   var numbering;
   switch (ind) {
     case 0:
@@ -804,8 +832,11 @@ function NewForPosition(props) {
   var achi = base[ind].achievements.map((con, index) => {
     return (
       <React.Fragment key={index}>
-        <input id={"PosAchi-" + ind + index} name="achievements" className="fPosAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
-        <label htmlFor={"PosAchi-" + ind + index}>Position Achievement-{index + 1}:</label>
+        <div className='DivAchiFor'>
+          <input id={"PosAchi-" + ind + index} name="achievements" className="fPosAchievements" onChange={achCha} value={base[ind].achievements[index]} type="text" placeholder=" " />
+          <label htmlFor={"PosAchi-" + ind + index}>Position Achievement-{index + 1}:</label>
+          <span onClick={() => { achiRem(base, ind, index) }} className="remBut">&#10060;</span>
+        </div>
       </React.Fragment>
     );
   });
@@ -819,6 +850,8 @@ function NewForPosition(props) {
         <input id={"PosTimLin-" + ind} name="timeline" className="fTimeline" onChange={cha} value={base[ind].timeline} type="text" placeholder=" " />
         <label htmlFor={"PosTimLin-" + ind}>Position Timeline</label>
         {achi}
+        <button onClick={() => { achiAdd(base, ind) }} className="fAddExpAchi addBut">+ Add Achievement</button>
+
       </fieldset>
     </div>
   );
