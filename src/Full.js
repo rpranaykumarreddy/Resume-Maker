@@ -193,8 +193,9 @@ class FullFun extends React.Component {
     //console.log("set", a, Date());
   }
   handleChange = e => {
+    e.preventDefault();
     const { name, value } = e.target;
-    this.setData(prevState => ({ [name]: value }));
+    this.setData(({ [name]: value }));
   }
   setGmail = (e) => {
     e.preventDefault();
@@ -433,7 +434,6 @@ class FullFun extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    console("Submitted" + JSON.stringify(this.state));
   }
   togData = (e) => {
     var prevState = this.state;
@@ -488,7 +488,7 @@ class FullFun extends React.Component {
               <input type="file" id="file-upload" onChange={this.showFile} /></div>
           </div>
           <button onClick={this.generatePDF} className="addBut">Print as PDF</button>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} onKeyDown={this.handleSubmit}>
             <fieldset className='ZeroFieSet'>
               <div className='spliFor'>
                 <div className='spliChd'>
