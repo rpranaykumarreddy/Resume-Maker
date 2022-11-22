@@ -7,90 +7,82 @@ class FullFun extends React.Component {
     super(props);
     this.state = {
       preview: false,
-      fullName: "Ravula Pranay Kumar Reddy",
+      fullName: "Your Full Name",
       link: {
         github: "",
         lgithub: "",
-        gmail: "rpranayreddy40@gmail.com",
-        lgmail: "https://mailto:rpranayreddy40@gmail.com",
-        whatsapp: "917680904589",
-        lwhatsapp: "https://wa.me/917680904589",
-        linkedin: "rpranaykumarreddy",
-        llinkedin: "http://www.linkedin.com/in/rpranaykumarreddy"
+        gmail: "your@gmail.com",
+        lgmail: "https://mailto:your@gmail.com",
+        whatsapp: "919999999999",
+        lwhatsapp: "https://wa.me/919999999999",
+        linkedin: "userid",
+        llinkedin: "http://www.linkedin.com/in/userid"
       },
       education: [{
         startYear: "2020",
-        endYear: "2024",
-        degree: "B.Tech in Computer Science and Engineering",
-        institution: "Indian Institute of Information Technology, Bhopal",
-        CGPA: "8.41"
+        endYear: "2021",
+        degree: "Your Degree",
+        institution: "Your Institution",
+        CGPA: "9.00"
       }, {
-        startYear: "2018",
+        startYear: "2019",
         endYear: "2020",
-        degree: "Intermediate in MPC",
-        institution: "Nano Junior College, Nallakunta (TSBIE)",
+        degree: "Your Degree",
+        institution: "Your Institution",
         CGPA: "",
-        percentage: "96.6"
-      }, {
-        startYear: "2020",
-        endYear: "2024",
-        degree: "B.Tech in Computer Science and Engineering",
-        institution: "Academic Heights Public School, Bhongir (CBSE)",
-        CGPA: "",
-        percentage: "87.2"
+        percentage: "90"
       }],
       experience: [{
         company: "Company Name",
-        link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
+        link: "",
         timeline: "September 2022 - October 2022",
         role: "Role",
         achievements: ["Achievement-1", "Achievement-2"]
       }, {
         company: "Company Name",
-        link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
-        timeline: "September 2022 - October 2022",
+        link: "https://www.google.com",
+        timeline: "September 2021 - October 2021",
         role: "Role",
         achievements: ["Achievement-1", "Achievement-2"]
       }],
-      portfolioLink: "https://pranay.wethinc.in",
+      portfolioLink: "https://www.google.com",
       projects: [{
-        category: "Chrome Extension",
-        name: "Youtube Playlist Ranger",
-        link: "https://chrome.google.com/webstore/detail/alpnapppdjbdbbaagjpchaaipphcnejo",
+        category: "Category",
+        name: "Project Name",
+        link: "https://www.google.com",
         role: "Developer",
         teamSize: "1",
         duration: "4 days",
-        achievements: ["Understanding the architecture of Chrome Extensions.", "Constant maintenance & bug fixing with version controls."],
+        achievements: ["Achievements-1", "Achievements-2"],
         date: "October 22, 2022"
       }, {
-        category: "Web App",
-        name: "Bulk Certificate Maker & Verifier",
-        link: "https://rpranaykumarreddy.github.io/youtube-Ext/",
-        role: "Developer",
+        category: "Category",
+        name: "Project Name",
+        link: "https://www.google.com",
+        role: "Team Lead & Developer",
         teamSize: "2",
-        duration: "2 days",
-        achievements: ["Maker to produce certificate(.pdf) in bulk along with QR code for verification.", "Verifier to scan the QR Code on certificate & fetch the data of the certificate."],
+        duration: "1 month",
+        achievements: ["Achievements-1", "Achievements-2"],
         date: "September 22, 2022"
       }],
       skills: [
-        ["Web Development", "HTML, CSS, JavaScript,SQL, ReactJS, Django"],
-        ["Languages", "C lang"],
-        ["Soft Skills", "Problem Solving, Effective Communication, Management Skills, Perceptive"],
-        ["Others", "Git, GitHub, Chrome Extensions, Adobe Photoshop, MS Access"]
+        ["Skill Sub-Category", "Skill-1, Skill-2, Skill-3"],
+        ["Skill Sub-Category", "Skill-1, Skill-2, Skill-3"],
+        ["Skill Sub-Category", "Skill-1, Skill-2, Skill-3"]
       ],
       achievements: [
-        "Secured 2nd position in IBM Innovation Camp: AI | IBM & Edunet",
-        "Completion of Finding the leader in You (FLY)-Scholar Program | Competitiveness Mindset Institute"
+        "Achievement-1",
+        "Achievement-2"
       ],
       positions: [{
-        title: "Google Developer Student Club (GDSC) Lead",
+        title: "Position Title",
         timeline: "July 2022 - Present",
         achievements: ["", ""]
       },
       {
-        title: "Lead Developer at We Thinc Solutions (Freelance) ",
-        timeline: "December 2020 – June 2022",
-        achievements: ["Built a group to have an environment to work-on different Ideas & to increase efficiency.", ""]
+        title: "Position Title",
+        timeline: "May 2022 – June 2022",
+        achievements: ["Achievements-1", ""]
       }
       ],
       demo: {
@@ -171,7 +163,6 @@ class FullFun extends React.Component {
           achievements: ["Achievement-1", ""]
         }
         ]
-
       }
     };
   }
