@@ -296,12 +296,13 @@ class FullFun extends React.Component {
     e.preventDefault();
     var prevState = this.state;
     var classIndex = showIndex(e.target, "f");
-    var classList = ["fCategory", "fName", "fLink", "fRole", "fTeamSize", "fDuration", "fDate"];
+    var classList = ["fCategory", "fName", "fPLink", "fPRole", "fTeamSize", "fDuration", "fPDate"];
     classList.forEach(className => {
+      console.log(className, classIndex);
       var temp = document.getElementsByClassName(className);
+      console.log(temp);
       var val = temp[classIndex].value;
       var nam = temp[classIndex].name;
-
       prevState.projects[classIndex] = { ...prevState.projects[classIndex], [nam]: val };
     });
     this.setData(prevState);
@@ -387,7 +388,6 @@ class FullFun extends React.Component {
   newForExpAchi = (e) => {
     e.preventDefault();
     var classIndex = showIndex(e.target.parentNode.parentNode, "d");
-    console.log(classIndex);
     var prevState = this.state;
     prevState.experience[classIndex].achievements.push("");
     this.setData(prevState);
@@ -438,9 +438,7 @@ class FullFun extends React.Component {
   }
   newForDivAchi = (base, index) => {
     var prevState = base;
-    console.log(prevState);
     prevState[index].achievements.push("");
-    console.log(prevState);
     this.setData(prevState);
   }
   removeInAchi = (base, need, ind) => {
@@ -457,8 +455,7 @@ class FullFun extends React.Component {
     e.preventDefault()
     const reader = new FileReader()
     reader.onload = async (e) => {
-      let textin = (e.target.result)
-      console.log(textin)
+      let textin = (e.target.result);
       let obj = JSON.parse(textin);
       this.setState(obj);
     };
@@ -713,14 +710,14 @@ function NewForPro(props) {
         <label htmlFor={"ProCat-" + ind}>Project Category</label>
         <input id={"ProName-" + ind} name="name" className="fName" onChange={cha} value={base[ind].name} type="text" placeholder=" " />
         <label htmlFor={"ProName-" + ind}>Project Name</label>
-        <input id={"ProLink-" + ind} name="link" className="fLink" onChange={cha} value={base[ind].link} type="text" placeholder=" " />
+        <input id={"ProLink-" + ind} name="link" className="fPLink" onChange={cha} value={base[ind].link} type="text" placeholder=" " />
         <label htmlFor={"ProLink-" + ind}>Project Link</label>
         <div className='spliFor'>
           <div className='spliChd'>
-            <input id={"ProRole-" + ind} name="role" className="fRole" onChange={cha} value={base[ind].role} type="text" placeholder=" " />
+            <input id={"ProRole-" + ind} name="role" className="fPRole" onChange={cha} value={base[ind].role} type="text" placeholder=" " />
             <label htmlFor={"ProRole-" + ind}>Your Role</label></div>
           <div className='spliChd'>
-            <input id={"ProDate-" + ind} name="date" className="fDate" onChange={cha} value={base[ind].date} type="text" placeholder=" " />
+            <input id={"ProDate-" + ind} name="date" className="fPDate" onChange={cha} value={base[ind].date} type="text" placeholder=" " />
             <label htmlFor={"ProDate-" + ind}>Date or Time Frame</label>
           </div>
         </div>
@@ -859,7 +856,6 @@ function showIndex(evt, str) {
   var claArr = document.getElementsByClassName(className);
   for (let i = 0; i < claArr.length; i++)
     if (claArr[i] === evt) {
-      //console.log("classIndex: " + i);
       return i;
     }
 }
